@@ -29,6 +29,13 @@ class NotificationService {
 
     _onNotificationTapped = onNotificationTapped;
 
+    // Di platform Web, notifikasi lokal native tidak didukung, inisialisasi aman lalu keluar
+    if (kIsWeb) {
+      tz.initializeTimeZones();
+      _isInitialized = true;
+      return;
+    }
+
     // 1. Inisialisasi database timezone
     tz.initializeTimeZones();
     try {
