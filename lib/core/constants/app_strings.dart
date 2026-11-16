@@ -28,12 +28,12 @@ class AppStrings {
   static const String stickerDone = 'SELESAI';
 
   // Empty States
-  static const String emptyPendingTitle = 'Kosong. Mantap.';
+  static const String emptyPendingTitle = 'Tidak ada tugas';
   static const String emptyPendingSubtitle =
-      'Semua tugas beres atau belum ada tugas baru. Jangan lupa istirahat!';
-  static const String emptyCompletedTitle = 'Belum ada yang beres';
+      'Belum ada tugas baru yang perlu dikerjakan.';
+  static const String emptyCompletedTitle = 'Belum ada tugas selesai';
   static const String emptyCompletedSubtitle =
-      'Selesaikan tugas pertamamu hari ini. Semangat!';
+      'Tugas yang telah Anda selesaikan akan muncul di sini.';
   static const String emptyFilterTitle = 'Tidak ada tugas';
   static const String emptyFilterSubtitle =
       'Belum ada tugas untuk mata pelajaran ini.';
@@ -77,13 +77,13 @@ class AppStrings {
   static const String errorSubjectNameRequired = 'Nama mapel wajib diisi';
 
   // Snackbars & Notifications
-  static const String taskCreated = 'Tugas berhasil ditambahkan!';
-  static const String taskUpdated = 'Tugas berhasil diperbarui!';
+  static const String taskCreated = 'Tugas berhasil ditambahkan.';
+  static const String taskUpdated = 'Tugas berhasil diperbarui.';
   static const String taskDeleted = 'Tugas dihapus.';
-  static const String taskMarkedDone = 'Tugas diselesaikan! Mantap!';
+  static const String taskMarkedDone = 'Tugas diselesaikan.';
   static const String taskMarkedUndone = 'Tugas dikembalikan ke daftar.';
   static const String allSubtasksCompletedPrompt =
-      'Semua subtugas selesai! Tandai tugas utama selesai?';
+      'Semua subtugas telah selesai. Tandai tugas utama selesai?';
 
   // Subjects Management
   static const String manageSubjects = 'Kelola Mapel';

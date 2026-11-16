@@ -27,7 +27,7 @@ class DeadlineSticker extends StatelessWidget {
     this.status,
     this.customBgColor,
     this.customTextColor,
-    this.rotationDegrees = -2.0,
+    this.rotationDegrees = 0.0,
   });
 
   Color _resolveBgColor() {
@@ -68,30 +68,22 @@ class DeadlineSticker extends StatelessWidget {
     return Transform.rotate(
       angle: radians,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.5),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 3.0),
         decoration: BoxDecoration(
           color: bgColor,
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.circular(6.0),
           border: Border.all(
             color: tokens.borderColor,
-            width: 2.0,
+            width: 1.0,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: tokens.shadowColor,
-              offset: const Offset(2.0, 2.0),
-              blurRadius: 0,
-              spreadRadius: 0,
-            ),
-          ],
         ),
         child: Text(
           text.toUpperCase(),
           style: AppTheme.monoStyle(
             fontSize: 10.5,
-            fontWeight: FontWeight.w800,
+            fontWeight: FontWeight.w700,
             color: textColor,
-            letterSpacing: 0.6,
+            letterSpacing: 0.5,
           ),
         ),
       ),

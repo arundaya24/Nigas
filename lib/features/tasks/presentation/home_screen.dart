@@ -156,7 +156,7 @@ class HomeScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Halo Siswa SMK 👋',
+                        'Daftar Tugas',
                         style: TextStyle(
                           fontFamily: 'SpaceGrotesk',
                           fontSize: 22,
@@ -167,7 +167,7 @@ class HomeScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Pilih jurusanmu atau kelola to-do list tugas mandiri.',
+                        'Kelola tugas kejuruan dan mata pelajaran umum.',
                         style: TextStyle(
                           fontSize: 13.5,
                           color: tokens.textMuted,
@@ -205,7 +205,7 @@ class HomeScreen extends ConsumerWidget {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'JURUSAN KEJURUAN',
+                            'JURUSAN',
                             style: AppTheme.monoStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w700,
@@ -217,7 +217,7 @@ class HomeScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Buka kartu jurusan untuk melihat & mengelola tugas khusus',
+                        'Pilih jurusan untuk melihat tugas kejuruan terkait',
                         style: TextStyle(
                           fontSize: 12.5,
                           color: tokens.textMuted,
@@ -312,7 +312,7 @@ class HomeScreen extends ConsumerWidget {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'DAFTAR TO-DO TUGAS',
+                            'SEMUA TUGAS',
                             style: AppTheme.monoStyle(
                               fontSize: 12.5,
                               fontWeight: FontWeight.w700,

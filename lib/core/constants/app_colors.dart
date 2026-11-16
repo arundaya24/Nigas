@@ -28,14 +28,14 @@ class AppColors {
   static const Color primaryLight = Color(0xFFEFF6FF); // Blue 50
 
   // Kategori Jurusan & Mapel Umum
-  static const Color rplPrimary = Color(0xFF4F46E5); // Indigo 600
-  static const Color rplLight = Color(0xFFEEF2FF);
-  static const Color tkjPrimary = Color(0xFF0284C7); // Sky 600
-  static const Color tkjLight = Color(0xFFE0F2FE);
-  static const Color dkvPrimary = Color(0xFFE11D48); // Rose 600
-  static const Color dkvLight = Color(0xFFFFE4E6);
-  static const Color generalPrimary = Color(0xFF059669); // Emerald 600
-  static const Color generalLight = Color(0xFFD1FAE5);
+  static const Color rplPrimary = Color(0xFF64748B); // Abu-abu (Slate)
+  static const Color rplLight = Color(0xFFF1F5F9);
+  static const Color tkjPrimary = Color(0xFF18181B); // Hitam (Onyx)
+  static const Color tkjLight = Color(0xFFE4E4E7);
+  static const Color dkvPrimary = Color(0xFF1E3A8A); // Biru Tua (Navy)
+  static const Color dkvLight = Color(0xFFEFF6FF);
+  static const Color generalPrimary = Color(0xFF0F766E); // Teal Netral
+  static const Color generalLight = Color(0xFFCCFBF1);
 
   // Status Pengerjaan (To-Do List)
   static const Color statusTodo = Color(0xFFD97706); // Amber 600

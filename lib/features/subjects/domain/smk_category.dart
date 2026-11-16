@@ -32,8 +32,8 @@ class SmkCategory {
     fullName: 'Rekayasa Perangkat Lunak',
     description: 'Pemrograman web, mobile, basis data, dan algoritma',
     icon: Icons.code_rounded,
-    primaryColor: Color(0xFF4F46E5), // Indigo
-    lightColor: Color(0xFFEEF2FF),
+    primaryColor: Color(0xFF64748B), // Abu-abu (Slate)
+    lightColor: Color(0xFFF1F5F9),
     templateSubjects: [
       'Pemrograman Web & Bergerak',
       'Pemrograman Berorientasi Objek',
@@ -48,8 +48,8 @@ class SmkCategory {
     fullName: 'Teknik Komputer & Jaringan',
     description: 'Jaringan komputer, routing, server, dan infrastruktur IT',
     icon: Icons.lan_rounded,
-    primaryColor: Color(0xFF0284C7), // Sky Blue
-    lightColor: Color(0xFFE0F2FE),
+    primaryColor: Color(0xFF18181B), // Hitam (Onyx)
+    lightColor: Color(0xFFE4E4E7),
     templateSubjects: [
       'Administrasi Infrastruktur Jaringan',
       'Administrasi Sistem Jaringan',
@@ -64,8 +64,8 @@ class SmkCategory {
     fullName: 'Desain Komunikasi Visual',
     description: 'Desain grafis, animasi 2D/3D, audio video, dan fotografi',
     icon: Icons.palette_rounded,
-    primaryColor: Color(0xFFE11D48), // Rose
-    lightColor: Color(0xFFFFE4E6),
+    primaryColor: Color(0xFF1E3A8A), // Biru Tua (Navy)
+    lightColor: Color(0xFFEFF6FF),
     templateSubjects: [
       'Desain Grafis Percetakan',
       'Animasi 2D dan 3D',
@@ -80,8 +80,8 @@ class SmkCategory {
     fullName: 'Mata Pelajaran Umum',
     description: 'Matematika, Bahasa Indonesia, Bahasa Inggris, dll.',
     icon: Icons.auto_stories_rounded,
-    primaryColor: Color(0xFF059669), // Emerald
-    lightColor: Color(0xFFD1FAE5),
+    primaryColor: Color(0xFF0F766E), // Teal Netral
+    lightColor: Color(0xFFCCFBF1),
     templateSubjects: [
       'Matematika',
       'Bahasa Indonesia',

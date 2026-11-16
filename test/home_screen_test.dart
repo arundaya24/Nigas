@@ -2,6 +2,7 @@ import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nigas/core/constants/app_strings.dart';
 import 'package:nigas/core/db/app_database.dart';
 import 'package:nigas/core/db/database_providers.dart';
 import 'package:nigas/core/theme/app_theme.dart';
@@ -33,15 +34,13 @@ void main() {
         databaseProvider.overrideWithValue(db),
         initTemplatesProvider.overrideWith((ref) async {}),
       ],
-      child: MaterialApp(
-        theme: AppTheme.lightTheme,
-        home: const HomeScreen(),
-      ),
+      child: MaterialApp(theme: AppTheme.lightTheme, home: const HomeScreen()),
     );
   }
 
-  testWidgets('HomeScreen displays SMK majors (RPL, TKJ, DKV) and Mapel Umum',
-      (WidgetTester tester) async {
+  testWidgets('HomeScreen displays SMK majors (RPL, TKJ, DKV) and Mapel Umum', (
+    WidgetTester tester,
+  ) async {
     tester.view.physicalSize = const Size(800, 2400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(() {
@@ -65,8 +64,9 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
   });
 
-  testWidgets('HomeScreen displays tasks in To-Do list and filters by status',
-      (WidgetTester tester) async {
+  testWidgets('HomeScreen displays tasks in To-Do list and filters by status', (
+    WidgetTester tester,
+  ) async {
     tester.view.physicalSize = const Size(800, 2400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(() {
@@ -137,8 +137,9 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
   });
 
-  testWidgets('Tap checkbox marks task done with Undo snackbar',
-      (WidgetTester tester) async {
+  testWidgets('Tap checkbox marks task done with Undo snackbar', (
+    WidgetTester tester,
+  ) async {
     tester.view.physicalSize = const Size(800, 2400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(() {
@@ -170,7 +171,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 100));
 
     // SnackBar konfirmasi muncul
-    expect(find.text('Tugas diselesaikan! Mantap!'), findsOneWidget);
+    expect(find.text(AppStrings.taskMarkedDone), findsOneWidget);
     expect(find.text('URUNGKAN'), findsOneWidget);
 
     // Tap URUNGKAN pada SnackBar
