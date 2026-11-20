@@ -1,33 +1,26 @@
-/// Kumpulan konstanta teks UI dalam Bahasa Indonesia untuk Nigas.
-/// Tidak ada string hardcode yang berserakan di kode presentation.
 class AppStrings {
   AppStrings._();
 
-  // App Name & Tagline
   static const String appName = 'Nigas';
   static const String appTagline = 'Pencatat Tugas Siswa SMK';
 
-  // Navigation & Tabs
   static const String tabPending = 'Belum Selesai';
   static const String tabCompleted = 'Selesai';
   static const String allSubjects = 'Semua';
   static const String searchTasks = 'Cari tugas...';
 
-  // Deadline Grouping Labels
   static const String groupOverdue = 'Telat';
   static const String groupToday = 'Hari ini';
   static const String groupTomorrow = 'Besok';
   static const String groupThisWeek = 'Minggu ini';
   static const String groupLater = 'Nanti';
 
-  // Stickers
   static const String stickerOverdue = 'TELAT';
   static const String stickerToday = 'HARI INI';
   static const String stickerTomorrow = 'BESOK';
   static const String stickerDaysLeft = 'HARI LAGI';
   static const String stickerDone = 'SELESAI';
 
-  // Empty States
   static const String emptyPendingTitle = 'Tidak ada tugas';
   static const String emptyPendingSubtitle =
       'Belum ada tugas baru yang perlu dikerjakan.';
@@ -38,7 +31,6 @@ class AppStrings {
   static const String emptyFilterSubtitle =
       'Belum ada tugas untuk mata pelajaran ini.';
 
-  // Actions
   static const String addTask = 'Tambah Tugas';
   static const String editTask = 'Edit Tugas';
   static const String deleteTask = 'Hapus Tugas';
@@ -49,7 +41,6 @@ class AppStrings {
   static const String markUndone = 'Kembalikan';
   static const String delete = 'Hapus';
 
-  // Task Form Fields
   static const String taskTitle = 'Judul Tugas';
   static const String taskTitleHint = 'Misal: Laporan Praktikum TKJ';
   static const String taskSubject = 'Mata Pelajaran';
@@ -63,12 +54,12 @@ class AppStrings {
   static const String addNewSubjectInline = '+ Tambah mapel baru';
   static const String taskDeadline = 'Tenggat Waktu';
   static const String taskNotes = 'Catatan';
-  static const String taskNotesHint = 'Tambahkan instruksi guru atau catatan...';
+  static const String taskNotesHint =
+      'Tambahkan instruksi guru atau catatan...';
   static const String taskSubtasks = 'Subtugas / Langkah Pengerjaan';
   static const String addSubtask = 'Tambah Langkah';
   static const String subtaskHint = 'Tulis langkah pengerjaan...';
 
-  // Validation Errors
   static const String errorTitleRequired = 'Judul tugas wajib diisi';
   static const String errorSubjectRequired = 'Pilih salah satu mata pelajaran';
   static const String errorDeadlinePast =
@@ -76,7 +67,6 @@ class AppStrings {
   static const String errorSubtaskEmpty = 'Teks subtugas tidak boleh kosong';
   static const String errorSubjectNameRequired = 'Nama mapel wajib diisi';
 
-  // Snackbars & Notifications
   static const String taskCreated = 'Tugas berhasil ditambahkan.';
   static const String taskUpdated = 'Tugas berhasil diperbarui.';
   static const String taskDeleted = 'Tugas dihapus.';
@@ -85,7 +75,6 @@ class AppStrings {
   static const String allSubtasksCompletedPrompt =
       'Semua subtugas telah selesai. Tandai tugas utama selesai?';
 
-  // Subjects Management
   static const String manageSubjects = 'Kelola Mapel';
   static const String addSubject = 'Tambah Mapel';
   static const String editSubject = 'Edit Mapel';
@@ -96,7 +85,6 @@ class AppStrings {
       'Mapel ini masih memiliki tugas. Pindahkan tugas ke mapel lain atau selesaikan dulu.';
   static const String moveTasksTo = 'Pindahkan tugas ke:';
 
-  // Settings
   static const String settings = 'Pengaturan';
   static const String appearance = 'Mode Tampilan';
   static const String themeLight = 'Terang';
@@ -110,14 +98,11 @@ class AppStrings {
   static const String changeMajorNote =
       'Mengganti jurusan akan menambahkan mapel kejuruan baru tanpa menghapus tugas yang sudah ada.';
 
-  // Onboarding
   static const String onboardingTitle = 'Pilih Jurusan SMK Kamu';
   static const String onboardingSubtitle =
       'Nigas akan menyiapkan daftar mata pelajaran umum dan kejuruan secara otomatis.';
   static const String selectMajor = 'Pilih Jurusan';
   static const String startApp = 'Mulai Menggunakan Nigas';
 
-  // Component Showcase
   static const String showcaseTitle = 'Neo-Brutalism Showcase';
 }
-

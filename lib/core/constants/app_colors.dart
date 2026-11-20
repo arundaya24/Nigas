@@ -1,56 +1,47 @@
 import 'package:flutter/material.dart';
 
-/// Palet warna modern, bersih, dan enak dipandang untuk aplikasi Nigas.
-/// Mengutamakan kontras nyaman (WCAG AA), warna kategori yang harmonis,
-/// dan tampilan antarmuka yang ramah bagi siswa SMK.
 class AppColors {
   AppColors._();
 
-  // Mode Terang
-  static const Color lightBg = Color(0xFFF8FAFC); // Slate 50 (soft clean)
+  static const Color lightBg = Color(0xFFF8FAFC);
   static const Color lightCard = Color(0xFFFFFFFF);
-  static const Color lightText = Color(0xFF0F172A); // Slate 900
-  static const Color lightTextMuted = Color(0xFF64748B); // Slate 500
-  static const Color lightBorder = Color(0xFFE2E8F0); // Slate 200 (subtle)
-  static const Color lightShadow = Color(0x0D0F172A); // Soft blur shadow
+  static const Color lightText = Color(0xFF0F172A);
+  static const Color lightTextMuted = Color(0xFF64748B);
+  static const Color lightBorder = Color(0xFFE2E8F0);
+  static const Color lightShadow = Color(0x0D0F172A);
 
-  // Mode Gelap
-  static const Color darkBg = Color(0xFF0B1120); // Deep modern slate
-  static const Color darkCard = Color(0xFF1E293B); // Slate 800
+  static const Color darkBg = Color(0xFF0B1120);
+  static const Color darkCard = Color(0xFF1E293B);
   static const Color darkText = Color(0xFFF8FAFC);
-  static const Color darkTextMuted = Color(0xFF94A3B8); // Slate 400
-  static const Color darkBorder = Color(0xFF334155); // Slate 700
+  static const Color darkTextMuted = Color(0xFF94A3B8);
+  static const Color darkBorder = Color(0xFF334155);
   static const Color darkShadow = Color(0x33000000);
 
-  // Brand & Action Primary
-  static const Color primary = Color(0xFF3B82F6); // Blue 500
-  static const Color primaryDark = Color(0xFF1D4ED8); // Blue 700
-  static const Color primaryLight = Color(0xFFEFF6FF); // Blue 50
+  static const Color primary = Color(0xFF3B82F6);
+  static const Color primaryDark = Color(0xFF1D4ED8);
+  static const Color primaryLight = Color(0xFFEFF6FF);
 
-  // Kategori Jurusan & Mapel Umum
-  static const Color rplPrimary = Color(0xFF64748B); // Abu-abu (Slate)
+  static const Color rplPrimary = Color(0xFF64748B);
   static const Color rplLight = Color(0xFFF1F5F9);
-  static const Color tkjPrimary = Color(0xFF18181B); // Hitam (Onyx)
+  static const Color tkjPrimary = Color(0xFF18181B);
   static const Color tkjLight = Color(0xFFE4E4E7);
-  static const Color dkvPrimary = Color(0xFF1E3A8A); // Biru Tua (Navy)
+  static const Color dkvPrimary = Color(0xFF1E3A8A);
   static const Color dkvLight = Color(0xFFEFF6FF);
-  static const Color generalPrimary = Color(0xFF0F766E); // Teal Netral
+  static const Color generalPrimary = Color(0xFF0F766E);
   static const Color generalLight = Color(0xFFCCFBF1);
 
-  // Status Pengerjaan (To-Do List)
-  static const Color statusTodo = Color(0xFFD97706); // Amber 600
+  static const Color statusTodo = Color(0xFFD97706);
   static const Color statusTodoBg = Color(0xFFFEF3C7);
   static const Color statusTodoBorder = Color(0xFFFDE68A);
 
-  static const Color statusProgress = Color(0xFF2563EB); // Blue 600
+  static const Color statusProgress = Color(0xFF2563EB);
   static const Color statusProgressBg = Color(0xFFDBEAFE);
   static const Color statusProgressBorder = Color(0xFFBFDBFE);
 
-  static const Color statusDone = Color(0xFF059669); // Emerald 600
+  static const Color statusDone = Color(0xFF059669);
   static const Color statusDoneBg = Color(0xFFD1FAE5);
   static const Color statusDoneBorder = Color(0xFFA7F3D0);
 
-  // Palet Aksen Mata Pelajaran (8 Warna Bersih & Segar)
   static const Color accentBlue = Color(0xFF2563EB);
   static const Color accentIndigo = Color(0xFF6366F1);
   static const Color accentPurple = Color(0xFF8B5CF6);
@@ -60,7 +51,6 @@ class AppColors {
   static const Color accentEmerald = Color(0xFF10B981);
   static const Color accentCyan = Color(0xFF06B6D4);
 
-  // Alias kompatibilitas
   static const Color yellow = accentAmber;
   static const Color red = Color(0xFFEF4444);
   static const Color blue = accentBlue;

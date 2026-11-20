@@ -1,5 +1,3 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
 part of 'app_database.dart';
 
 // ignore_for_file: type=lint
@@ -1537,24 +1535,22 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   ]);
 }
 
-typedef $$SubjectsTableCreateCompanionBuilder =
-    SubjectsCompanion Function({
-      Value<int> id,
-      required String name,
-      Value<int> colorIndex,
-      Value<bool> isPreset,
-      Value<String> category,
-      Value<DateTime> createdAt,
-    });
-typedef $$SubjectsTableUpdateCompanionBuilder =
-    SubjectsCompanion Function({
-      Value<int> id,
-      Value<String> name,
-      Value<int> colorIndex,
-      Value<bool> isPreset,
-      Value<String> category,
-      Value<DateTime> createdAt,
-    });
+typedef $$SubjectsTableCreateCompanionBuilder = SubjectsCompanion Function({
+  Value<int> id,
+  required String name,
+  Value<int> colorIndex,
+  Value<bool> isPreset,
+  Value<String> category,
+  Value<DateTime> createdAt,
+});
+typedef $$SubjectsTableUpdateCompanionBuilder = SubjectsCompanion Function({
+  Value<int> id,
+  Value<String> name,
+  Value<int> colorIndex,
+  Value<bool> isPreset,
+  Value<String> category,
+  Value<DateTime> createdAt,
+});
 
 final class $$SubjectsTableReferences
     extends BaseReferences<_$AppDatabase, $SubjectsTable, SubjectEntry> {
@@ -1850,30 +1846,28 @@ typedef $$SubjectsTableProcessedTableManager =
       SubjectEntry,
       PrefetchHooks Function({bool tasksRefs})
     >;
-typedef $$TasksTableCreateCompanionBuilder =
-    TasksCompanion Function({
-      Value<int> id,
-      required String title,
-      Value<String?> notes,
-      required int subjectId,
-      required DateTime dueAt,
-      Value<String> status,
-      Value<bool> isDone,
-      Value<DateTime?> doneAt,
-      Value<DateTime> createdAt,
-    });
-typedef $$TasksTableUpdateCompanionBuilder =
-    TasksCompanion Function({
-      Value<int> id,
-      Value<String> title,
-      Value<String?> notes,
-      Value<int> subjectId,
-      Value<DateTime> dueAt,
-      Value<String> status,
-      Value<bool> isDone,
-      Value<DateTime?> doneAt,
-      Value<DateTime> createdAt,
-    });
+typedef $$TasksTableCreateCompanionBuilder = TasksCompanion Function({
+  Value<int> id,
+  required String title,
+  Value<String?> notes,
+  required int subjectId,
+  required DateTime dueAt,
+  Value<String> status,
+  Value<bool> isDone,
+  Value<DateTime?> doneAt,
+  Value<DateTime> createdAt,
+});
+typedef $$TasksTableUpdateCompanionBuilder = TasksCompanion Function({
+  Value<int> id,
+  Value<String> title,
+  Value<String?> notes,
+  Value<int> subjectId,
+  Value<DateTime> dueAt,
+  Value<String> status,
+  Value<bool> isDone,
+  Value<DateTime?> doneAt,
+  Value<DateTime> createdAt,
+});
 
 final class $$TasksTableReferences
     extends BaseReferences<_$AppDatabase, $TasksTable, TaskEntry> {
@@ -2264,17 +2258,16 @@ class $$TasksTableTableManager
                     >
                   >(state) {
                     if (subjectId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.subjectId,
-                                referencedTable: $$TasksTableReferences
-                                    ._subjectIdTable(db),
-                                referencedColumn: $$TasksTableReferences
-                                    ._subjectIdTable(db)
-                                    .id,
-                              )
-                              as T;
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.subjectId,
+                        referencedTable: $$TasksTableReferences._subjectIdTable(
+                          db,
+                        ),
+                        referencedColumn: $$TasksTableReferences
+                            ._subjectIdTable(db)
+                            .id,
+                      ) as T;
                     }
 
                     return state;
@@ -2318,22 +2311,20 @@ typedef $$TasksTableProcessedTableManager =
       TaskEntry,
       PrefetchHooks Function({bool subjectId, bool subtasksRefs})
     >;
-typedef $$SubtasksTableCreateCompanionBuilder =
-    SubtasksCompanion Function({
-      Value<int> id,
-      required int taskId,
-      required String title,
-      Value<bool> isDone,
-      Value<int> sortOrder,
-    });
-typedef $$SubtasksTableUpdateCompanionBuilder =
-    SubtasksCompanion Function({
-      Value<int> id,
-      Value<int> taskId,
-      Value<String> title,
-      Value<bool> isDone,
-      Value<int> sortOrder,
-    });
+typedef $$SubtasksTableCreateCompanionBuilder = SubtasksCompanion Function({
+  Value<int> id,
+  required int taskId,
+  required String title,
+  Value<bool> isDone,
+  Value<int> sortOrder,
+});
+typedef $$SubtasksTableUpdateCompanionBuilder = SubtasksCompanion Function({
+  Value<int> id,
+  Value<int> taskId,
+  Value<String> title,
+  Value<bool> isDone,
+  Value<int> sortOrder,
+});
 
 final class $$SubtasksTableReferences
     extends BaseReferences<_$AppDatabase, $SubtasksTable, SubtaskEntry> {
@@ -2592,17 +2583,16 @@ class $$SubtasksTableTableManager
                     >
                   >(state) {
                     if (taskId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.taskId,
-                                referencedTable: $$SubtasksTableReferences
-                                    ._taskIdTable(db),
-                                referencedColumn: $$SubtasksTableReferences
-                                    ._taskIdTable(db)
-                                    .id,
-                              )
-                              as T;
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.taskId,
+                        referencedTable: $$SubtasksTableReferences._taskIdTable(
+                          db,
+                        ),
+                        referencedColumn: $$SubtasksTableReferences
+                            ._taskIdTable(db)
+                            .id,
+                      ) as T;
                     }
 
                     return state;
@@ -2734,16 +2724,11 @@ class $$AppSettingsTableTableTableManager
               $$AppSettingsTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $$AppSettingsTableTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<String> key = const Value.absent(),
-                Value<String> value = const Value.absent(),
-                Value<int> rowid = const Value.absent(),
-              }) => AppSettingsTableCompanion(
-                key: key,
-                value: value,
-                rowid: rowid,
-              ),
+          updateCompanionCallback: ({
+            Value<String> key = const Value.absent(),
+            Value<String> value = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) => AppSettingsTableCompanion(key: key, value: value, rowid: rowid),
           createCompanionCallback:
               ({
                 required String key,
