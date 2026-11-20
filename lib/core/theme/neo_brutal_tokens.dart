@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../constants/app_colors.dart';
 
-/// Token desain Nigas yang bersih, modern, dan enak dipandang.
-/// Mendukung mode Terang & Gelap dengan kontras nyaman dan radius ramah.
 class NeoBrutalTokens extends ThemeExtension<NeoBrutalTokens> {
   final Color scaffoldBg;
   final Color cardBg;
@@ -32,7 +31,6 @@ class NeoBrutalTokens extends ThemeExtension<NeoBrutalTokens> {
     this.pressedShadowOffset = const Offset(0.0, 1.0),
   });
 
-  /// Mode Terang: Bersih, cerah, bayangan halus, sudut membulat 16px
   factory NeoBrutalTokens.light() {
     return const NeoBrutalTokens(
       scaffoldBg: AppColors.lightBg,
@@ -50,7 +48,6 @@ class NeoBrutalTokens extends ThemeExtension<NeoBrutalTokens> {
     );
   }
 
-  /// Mode Gelap: Slate gelap nyaman, kartu bergradien lembut, kontras tinggi
   factory NeoBrutalTokens.dark() {
     return const NeoBrutalTokens(
       scaffoldBg: AppColors.darkBg,
@@ -114,13 +111,14 @@ class NeoBrutalTokens extends ThemeExtension<NeoBrutalTokens> {
       shadowColor: Color.lerp(shadowColor, other.shadowColor, t)!,
       primaryAccent: Color.lerp(primaryAccent, other.primaryAccent, t)!,
       secondaryAccent: Color.lerp(secondaryAccent, other.secondaryAccent, t)!,
-      borderWidth:
-          borderWidth + (other.borderWidth - borderWidth) * t,
-      borderRadius:
-          borderRadius + (other.borderRadius - borderRadius) * t,
+      borderWidth: borderWidth + (other.borderWidth - borderWidth) * t,
+      borderRadius: borderRadius + (other.borderRadius - borderRadius) * t,
       shadowOffset: Offset.lerp(shadowOffset, other.shadowOffset, t)!,
-      pressedShadowOffset:
-          Offset.lerp(pressedShadowOffset, other.pressedShadowOffset, t)!,
+      pressedShadowOffset: Offset.lerp(
+        pressedShadowOffset,
+        other.pressedShadowOffset,
+        t,
+      )!,
     );
   }
 }

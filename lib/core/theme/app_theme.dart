@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+
 import '../constants/app_colors.dart';
 import 'neo_brutal_tokens.dart';
 
-/// Konfigurasi ThemeData Terang dan Gelap yang bersih, modern, dan enak dipandang.
 class AppTheme {
   AppTheme._();
 
   static const String fontHeading = 'SpaceGrotesk';
   static const String fontMono = 'SpaceMono';
 
-  /// Helper untuk gaya teks monospace (Space Mono)
   static TextStyle monoStyle({
     double fontSize = 12,
     FontWeight fontWeight = FontWeight.w600,
@@ -25,7 +24,6 @@ class AppTheme {
     );
   }
 
-  /// ThemeData Mode Terang
   static ThemeData get lightTheme {
     final tokens = NeoBrutalTokens.light();
 
@@ -37,7 +35,6 @@ class AppTheme {
       fontFamily: fontHeading,
       extensions: [tokens],
 
-      // ColorScheme
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
         onPrimary: Colors.white,
@@ -49,7 +46,6 @@ class AppTheme {
         onError: Colors.white,
       ),
 
-      // AppBar
       appBarTheme: AppBarTheme(
         backgroundColor: tokens.scaffoldBg,
         foregroundColor: tokens.textPrimary,
@@ -65,7 +61,6 @@ class AppTheme {
         ),
       ),
 
-      // Card
       cardTheme: CardThemeData(
         color: tokens.cardBg,
         elevation: 0,
@@ -78,7 +73,6 @@ class AppTheme {
         ),
       ),
 
-      // Dialog
       dialogTheme: DialogThemeData(
         backgroundColor: tokens.cardBg,
         elevation: 6,
@@ -102,22 +96,30 @@ class AppTheme {
         ),
       ),
 
-      // Input Decoration
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.white,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         hintStyle: const TextStyle(
           fontSize: 14,
           color: AppColors.lightTextMuted,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: tokens.borderColor, width: tokens.borderWidth),
+          borderSide: BorderSide(
+            color: tokens.borderColor,
+            width: tokens.borderWidth,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: tokens.borderColor, width: tokens.borderWidth),
+          borderSide: BorderSide(
+            color: tokens.borderColor,
+            width: tokens.borderWidth,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -129,19 +131,15 @@ class AppTheme {
         ),
       ),
 
-      // FloatingActionButton
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     );
   }
 
-  /// ThemeData Mode Gelap
   static ThemeData get darkTheme {
     final tokens = NeoBrutalTokens.dark();
 
@@ -153,7 +151,6 @@ class AppTheme {
       fontFamily: fontHeading,
       extensions: [tokens],
 
-      // ColorScheme
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         onPrimary: Colors.white,
@@ -165,7 +162,6 @@ class AppTheme {
         onError: Colors.white,
       ),
 
-      // AppBar
       appBarTheme: AppBarTheme(
         backgroundColor: tokens.scaffoldBg,
         foregroundColor: tokens.textPrimary,
@@ -181,7 +177,6 @@ class AppTheme {
         ),
       ),
 
-      // Card
       cardTheme: CardThemeData(
         color: tokens.cardBg,
         elevation: 0,
@@ -194,7 +189,6 @@ class AppTheme {
         ),
       ),
 
-      // Dialog
       dialogTheme: DialogThemeData(
         backgroundColor: tokens.cardBg,
         elevation: 8,
@@ -218,22 +212,30 @@ class AppTheme {
         ),
       ),
 
-      // Input Decoration
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.darkCard,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         hintStyle: const TextStyle(
           fontSize: 14,
           color: AppColors.darkTextMuted,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: tokens.borderColor, width: tokens.borderWidth),
+          borderSide: BorderSide(
+            color: tokens.borderColor,
+            width: tokens.borderWidth,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: tokens.borderColor, width: tokens.borderWidth),
+          borderSide: BorderSide(
+            color: tokens.borderColor,
+            width: tokens.borderWidth,
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -241,14 +243,11 @@ class AppTheme {
         ),
       ),
 
-      // FloatingActionButton
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     );
   }

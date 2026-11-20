@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../theme/neo_brutal_tokens.dart';
 
-/// Kartu modern dengan sudut membulat halus, border rapi, dan bayangan lembut.
 class NeoBrutalCard extends StatefulWidget {
   final Widget child;
   final VoidCallback? onTap;
@@ -50,10 +50,7 @@ class _NeoBrutalCardState extends State<NeoBrutalCard> {
       decoration: BoxDecoration(
         color: effectiveBg,
         borderRadius: BorderRadius.circular(radius),
-        border: Border.all(
-          color: effectiveBorder,
-          width: tokens.borderWidth,
-        ),
+        border: Border.all(color: effectiveBorder, width: tokens.borderWidth),
         boxShadow: [
           BoxShadow(
             color: widget.shadowColor ?? tokens.shadowColor,
@@ -66,10 +63,7 @@ class _NeoBrutalCardState extends State<NeoBrutalCard> {
     );
 
     if (widget.onTap == null) {
-      return Padding(
-        padding: widget.margin,
-        child: content,
-      );
+      return Padding(padding: widget.margin, child: content);
     }
 
     return Padding(
@@ -78,10 +72,7 @@ class _NeoBrutalCardState extends State<NeoBrutalCard> {
         cursor: SystemMouseCursors.click,
         onEnter: (_) => setState(() => _isHovered = true),
         onExit: (_) => setState(() => _isHovered = false),
-        child: GestureDetector(
-          onTap: widget.onTap,
-          child: content,
-        ),
+        child: GestureDetector(onTap: widget.onTap, child: content),
       ),
     );
   }
