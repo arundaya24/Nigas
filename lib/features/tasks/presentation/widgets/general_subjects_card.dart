@@ -80,13 +80,17 @@ class _GeneralSubjectsCardState extends State<GeneralSubjectsCard> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                'Mata Pelajaran Umum',
-                                style: TextStyle(
-                                  fontFamily: 'SpaceGrotesk',
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w700,
-                                  color: tokens.textPrimary,
+                              Flexible(
+                                child: Text(
+                                  'Mata Pelajaran Umum',
+                                  style: TextStyle(
+                                    fontFamily: 'SpaceGrotesk',
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w700,
+                                    color: tokens.textPrimary,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               const SizedBox(width: 8),
@@ -146,14 +150,7 @@ class _GeneralSubjectsCardState extends State<GeneralSubjectsCard> {
                 Wrap(
                   spacing: 6,
                   runSpacing: 6,
-                  children: [
-                    'PAI',
-                    'PKK',
-                    'PPKn',
-                    'B. Indo',
-                    'B. Inggris',
-                    'MTK',
-                  ].map((mapel) {
+                  children: cat.templateSubjects.take(3).map((mapel) {
                     return Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8,
@@ -188,7 +185,7 @@ class _GeneralSubjectsCardState extends State<GeneralSubjectsCard> {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
-                          '+4 mapel wajib',
+                          '+${cat.templateSubjects.length - 3} lainnya',
                           style: TextStyle(
                             fontSize: 10.5,
                             fontWeight: FontWeight.w600,

@@ -86,13 +86,17 @@ class _MajorCardState extends State<MajorCard> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                cat.shortName,
-                                style: TextStyle(
-                                  fontFamily: 'SpaceGrotesk',
-                                  fontSize: 16.5,
-                                  fontWeight: FontWeight.w700,
-                                  color: tokens.textPrimary,
+                              Flexible(
+                                child: Text(
+                                  cat.shortName,
+                                  style: TextStyle(
+                                    fontFamily: 'SpaceGrotesk',
+                                    fontSize: 16.5,
+                                    fontWeight: FontWeight.w700,
+                                    color: tokens.textPrimary,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               const SizedBox(width: 8),
