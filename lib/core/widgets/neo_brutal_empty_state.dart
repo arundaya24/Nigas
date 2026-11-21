@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../theme/neo_brutal_tokens.dart';
 import 'neo_brutal_button.dart';
 
-/// Empty state yang bersih dan ramah untuk siswa SMK.
 class NeoBrutalEmptyState extends StatelessWidget {
   final String title;
   final String? subtitle;
@@ -41,11 +41,7 @@ class NeoBrutalEmptyState extends StatelessWidget {
                 color: tokens.primaryAccent.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
-                icon,
-                size: 36,
-                color: tokens.primaryAccent,
-              ),
+              child: Icon(icon, size: 36, color: tokens.primaryAccent),
             ),
             const SizedBox(height: 18),
             Text(

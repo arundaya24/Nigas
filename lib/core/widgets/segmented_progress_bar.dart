@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../theme/app_theme.dart';
 import '../theme/neo_brutal_tokens.dart';
 
-/// Bar progres subtugas berbentuk deretan kotak bersegmen khas Neo-Brutalism.
-/// Menggantikan progress bar membulat default Material.
 class SegmentedProgressBar extends StatelessWidget {
   final int total;
   final int completed;
@@ -25,7 +24,7 @@ class SegmentedProgressBar extends StatelessWidget {
     if (total <= 0) return const SizedBox.shrink();
 
     final tokens = context.neoBrutal;
-    final fill = activeColor ?? tokens.secondaryAccent; // Default Lime Green
+    final fill = activeColor ?? tokens.secondaryAccent;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -61,17 +60,12 @@ class SegmentedProgressBar extends StatelessWidget {
             final isDone = index < completed;
             return Expanded(
               child: Container(
-                margin: EdgeInsets.only(
-                  right: index < total - 1 ? 4.0 : 0.0,
-                ),
+                margin: EdgeInsets.only(right: index < total - 1 ? 4.0 : 0.0),
                 height: height,
                 decoration: BoxDecoration(
                   color: isDone ? fill : tokens.cardBg,
                   borderRadius: BorderRadius.circular(1.0),
-                  border: Border.all(
-                    color: tokens.borderColor,
-                    width: 1.5,
-                  ),
+                  border: Border.all(color: tokens.borderColor, width: 1.5),
                 ),
               ),
             );
@@ -81,4 +75,3 @@ class SegmentedProgressBar extends StatelessWidget {
     );
   }
 }
-

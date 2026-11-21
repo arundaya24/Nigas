@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../constants/app_colors.dart';
 import '../theme/neo_brutal_tokens.dart';
 
-/// Filter Chip modern dengan bentuk pill membulat, transisi halus, dan kontras nyaman.
 class NeoBrutalChip extends StatelessWidget {
   final String label;
   final bool isSelected;
@@ -62,10 +62,7 @@ class NeoBrutalChip extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (leading != null) ...[
-                leading!,
-                const SizedBox(width: 6),
-              ],
+              if (leading != null) ...[leading!, const SizedBox(width: 6)],
               Text(
                 label,
                 style: TextStyle(

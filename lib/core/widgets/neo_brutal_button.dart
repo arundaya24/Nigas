@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
+
 import '../constants/app_colors.dart';
 import '../theme/neo_brutal_tokens.dart';
 
-enum NeoBrutalButtonVariant {
-  primary,
-  secondary,
-  danger,
-  success,
-}
+enum NeoBrutalButtonVariant { primary, secondary, danger, success }
 
-/// Tombol modern dengan sudut membulat, bayangan halus, dan responsif.
 class NeoBrutalButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final Widget? child;
@@ -35,9 +30,9 @@ class NeoBrutalButton extends StatefulWidget {
     this.height = 48.0,
     this.padding = const EdgeInsets.symmetric(horizontal: 18.0),
   }) : assert(
-          child != null || text != null,
-          'Either child or text must be provided',
-        );
+         child != null || text != null,
+         'Either child or text must be provided',
+       );
 
   @override
   State<NeoBrutalButton> createState() => _NeoBrutalButtonState();
@@ -79,9 +74,7 @@ class _NeoBrutalButtonState extends State<NeoBrutalButton> {
     final bgColor = isEnabled
         ? _resolveBgColor(tokens)
         : tokens.borderColor.withValues(alpha: 0.5);
-    final textColor = isEnabled
-        ? _resolveTextColor(tokens)
-        : tokens.textMuted;
+    final textColor = isEnabled ? _resolveTextColor(tokens) : tokens.textMuted;
 
     final isSecondary = widget.variant == NeoBrutalButtonVariant.secondary;
 
@@ -90,7 +83,9 @@ class _NeoBrutalButtonState extends State<NeoBrutalButton> {
       child: GestureDetector(
         onTapDown: isEnabled ? (_) => setState(() => _isPressed = true) : null,
         onTapUp: isEnabled ? (_) => setState(() => _isPressed = false) : null,
-        onTapCancel: isEnabled ? () => setState(() => _isPressed = false) : null,
+        onTapCancel: isEnabled
+            ? () => setState(() => _isPressed = false)
+            : null,
         onTap: widget.onPressed,
         child: AnimatedScale(
           scale: _isPressed ? 0.98 : 1.0,
@@ -111,7 +106,9 @@ class _NeoBrutalButtonState extends State<NeoBrutalButton> {
                       BoxShadow(
                         color: bgColor.withValues(alpha: 0.25),
                         blurRadius: _isPressed ? 4 : 8,
-                        offset: _isPressed ? const Offset(0, 1) : const Offset(0, 3),
+                        offset: _isPressed
+                            ? const Offset(0, 1)
+                            : const Offset(0, 3),
                       ),
                     ]
                   : null,

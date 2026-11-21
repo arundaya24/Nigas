@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../features/tasks/domain/task_status.dart';
 import '../theme/app_theme.dart';
 import '../theme/neo_brutal_tokens.dart';
@@ -8,12 +9,6 @@ import 'neo_brutal_checkbox.dart';
 import 'segmented_progress_bar.dart';
 import 'task_status_badge.dart';
 
-/// Kartu tugas modern, bersih, dan enak dipandang:
-/// - Strip warna mapel di sisi kiri
-/// - Tag mapel & kategori jurusan
-/// - Judul tugas (coret saat selesai)
-/// - Status badge interaktif (Belum / Sedang / Selesai)
-/// - Label deadline & progres subtugas
 class NeoBrutalTaskCard extends StatelessWidget {
   final String title;
   final String subjectName;
@@ -66,13 +61,8 @@ class NeoBrutalTaskCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Strip warna mapel di sisi kiri
-              Container(
-                width: 6.0,
-                color: subjectColor,
-              ),
+              Container(width: 6.0, color: subjectColor),
 
-              // Konten Utama Kartu
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
@@ -80,15 +70,18 @@ class NeoBrutalTaskCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Baris 1: Kategori & Tag Mapel + Status Badge
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           if (categoryLabel != null) ...[
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2.5),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 7,
+                                vertical: 2.5,
+                              ),
                               decoration: BoxDecoration(
-                                color: (categoryColor ?? tokens.primaryAccent).withValues(alpha: 0.12),
+                                color: (categoryColor ?? tokens.primaryAccent)
+                                    .withValues(alpha: 0.12),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
@@ -104,7 +97,10 @@ class NeoBrutalTaskCard extends StatelessWidget {
                           ],
                           Flexible(
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2.5),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 2.5,
+                              ),
                               decoration: BoxDecoration(
                                 color: subjectColor.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(6),
@@ -123,7 +119,6 @@ class NeoBrutalTaskCard extends StatelessWidget {
                             ),
                           ),
                           const Spacer(),
-                          // Badge Status interaktif
                           TaskStatusBadge(
                             status: status,
                             compact: true,
@@ -133,7 +128,6 @@ class NeoBrutalTaskCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
 
-                      // Baris 2: Checkbox + Judul Tugas
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -166,7 +160,6 @@ class NeoBrutalTaskCard extends StatelessWidget {
                         ],
                       ),
 
-                      // Baris 3: Catatan Singkat (jika ada)
                       if (notes != null && notes!.trim().isNotEmpty) ...[
                         const SizedBox(height: 6),
                         Padding(
@@ -184,7 +177,6 @@ class NeoBrutalTaskCard extends StatelessWidget {
                         ),
                       ],
 
-                      // Baris 4: Deadline & Progress Subtugas
                       const SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.only(left: 30.0),

@@ -1,19 +1,13 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
+
 import '../constants/app_colors.dart';
 import '../theme/app_theme.dart';
 import '../theme/neo_brutal_tokens.dart';
 
-enum DeadlineStatus {
-  overdue,
-  today,
-  tomorrow,
-  upcoming,
-  done,
-}
+enum DeadlineStatus { overdue, today, tomorrow, upcoming, done }
 
-/// Label tenggat waktu berbentuk stiker Neo-Brutalism:
-/// Sedikit miring (±2°), garis tebal, hard shadow, teks Space Mono uppercase.
 class DeadlineSticker extends StatelessWidget {
   final String text;
   final DeadlineStatus? status;
@@ -72,10 +66,7 @@ class DeadlineSticker extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(6.0),
-          border: Border.all(
-            color: tokens.borderColor,
-            width: 1.0,
-          ),
+          border: Border.all(color: tokens.borderColor, width: 1.0),
         ),
         child: Text(
           text.toUpperCase(),
@@ -90,4 +81,3 @@ class DeadlineSticker extends StatelessWidget {
     );
   }
 }
-

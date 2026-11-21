@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../../features/tasks/domain/task_status.dart';
 import '../theme/app_theme.dart';
 
-/// Badge pill status pengerjaan tugas (Belum Dikerjakan / Sedang Dikerjakan / Sudah Selesai).
-/// Desain bersih, modern, dan dapat diklik untuk mengganti status secara langsung.
 class TaskStatusBadge extends StatelessWidget {
   final TaskStatus status;
   final VoidCallback? onTap;
@@ -33,11 +32,7 @@ class TaskStatusBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            status.icon,
-            size: compact ? 13 : 15,
-            color: status.color,
-          ),
+          Icon(status.icon, size: compact ? 13 : 15, color: status.color),
           const SizedBox(width: 5),
           Text(
             label,

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+
 import '../constants/app_colors.dart';
 import '../theme/neo_brutal_tokens.dart';
 
-/// Checkbox modern dengan bentuk membulat halus, animasi centang mulus,
-/// dan area sentuh 48x48 untuk aksesibilitas.
 class NeoBrutalCheckbox extends StatefulWidget {
   final bool value;
   final ValueChanged<bool>? onChanged;

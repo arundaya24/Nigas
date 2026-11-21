@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+
 import '../../../core/db/app_database.dart';
 import '../../onboarding/domain/vocational_major.dart';
 import '../domain/smk_category.dart';
@@ -56,7 +57,9 @@ class SubjectRepositoryImpl implements SubjectRepository {
     bool isPreset = false,
     String category = 'general',
   }) async {
-    return _db.into(_db.subjects).insert(
+    return _db
+        .into(_db.subjects)
+        .insert(
           SubjectsCompanion.insert(
             name: name,
             colorIndex: Value(colorIndex),
@@ -68,7 +71,9 @@ class SubjectRepositoryImpl implements SubjectRepository {
 
   @override
   Future<void> updateSubject(Subject subject) async {
-    await (_db.update(_db.subjects)..where((t) => t.id.equals(subject.id))).write(
+    await (_db.update(
+      _db.subjects,
+    )..where((t) => t.id.equals(subject.id))).write(
       SubjectsCompanion(
         name: Value(subject.name),
         colorIndex: Value(subject.colorIndex),
@@ -97,18 +102,20 @@ class SubjectRepositoryImpl implements SubjectRepository {
     required int fromSubjectId,
     required int toSubjectId,
   }) async {
-    await (_db.update(_db.tasks)..where((t) => t.subjectId.equals(fromSubjectId))).write(
-      TasksCompanion(
-        subjectId: Value(toSubjectId),
-      ),
-    );
+    await (_db.update(_db.tasks)
+          ..where((t) => t.subjectId.equals(fromSubjectId)))
+        .write(TasksCompanion(subjectId: Value(toSubjectId)));
   }
 
   @override
-  Future<void> seedSubjects(List<PresetSubjectItem> subjects, {String category = 'general'}) async {
+  Future<void> seedSubjects(
+    List<PresetSubjectItem> subjects, {
+    String category = 'general',
+  }) async {
     final existingSubjects = await getAllSubjects();
-    final existingNames =
-        existingSubjects.map((s) => s.name.toLowerCase().trim()).toSet();
+    final existingNames = existingSubjects
+        .map((s) => s.name.toLowerCase().trim())
+        .toSet();
 
     await _db.batch((batch) {
       for (final item in subjects) {
@@ -130,41 +137,45 @@ class SubjectRepositoryImpl implements SubjectRepository {
   @override
   Future<void> seedDefaultTemplates() async {
     final existingSubjects = await getAllSubjects();
-    final existingNames =
-        existingSubjects.map((s) => s.name.toLowerCase().trim()).toSet();
+    final existingNames = existingSubjects
+        .map((s) => s.name.toLowerCase().trim())
+        .toSet();
 
-    // Map template subjects for RPL, TKJ, DKV, General
     final templates = <PresetSubjectItem, String>{};
 
     for (int i = 0; i < SmkCategory.rpl.templateSubjects.length; i++) {
       templates[PresetSubjectItem(
-        name: SmkCategory.rpl.templateSubjects[i],
-        colorIndex: (i * 2) % 8,
-        isVocational: true,
-      )] = 'rpl';
+            name: SmkCategory.rpl.templateSubjects[i],
+            colorIndex: (i * 2) % 8,
+            isVocational: true,
+          )] =
+          'rpl';
     }
 
     for (int i = 0; i < SmkCategory.tkj.templateSubjects.length; i++) {
       templates[PresetSubjectItem(
-        name: SmkCategory.tkj.templateSubjects[i],
-        colorIndex: (i * 2 + 1) % 8,
-        isVocational: true,
-      )] = 'tkj';
+            name: SmkCategory.tkj.templateSubjects[i],
+            colorIndex: (i * 2 + 1) % 8,
+            isVocational: true,
+          )] =
+          'tkj';
     }
 
     for (int i = 0; i < SmkCategory.dkv.templateSubjects.length; i++) {
       templates[PresetSubjectItem(
-        name: SmkCategory.dkv.templateSubjects[i],
-        colorIndex: (i * 2 + 4) % 8,
-        isVocational: true,
-      )] = 'dkv';
+            name: SmkCategory.dkv.templateSubjects[i],
+            colorIndex: (i * 2 + 4) % 8,
+            isVocational: true,
+          )] =
+          'dkv';
     }
 
     for (int i = 0; i < SmkCategory.general.templateSubjects.length; i++) {
       templates[PresetSubjectItem(
-        name: SmkCategory.general.templateSubjects[i],
-        colorIndex: i % 8,
-      )] = 'general';
+            name: SmkCategory.general.templateSubjects[i],
+            colorIndex: i % 8,
+          )] =
+          'general';
     }
 
     await _db.batch((batch) {
