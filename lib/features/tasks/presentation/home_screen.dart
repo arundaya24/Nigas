@@ -20,8 +20,22 @@ import 'widgets/major_card.dart';
 import 'widgets/stats_summary_card.dart';
 import 'widgets/status_selector_bottom_sheet.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   void _handleToggleDone(
     BuildContext context,
@@ -65,7 +79,7 @@ class HomeScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final tokens = context.brutalTheme;
 
     // Pastikan template default telah diinisialisasi
@@ -76,7 +90,7 @@ class HomeScreen extends ConsumerWidget {
     final selectedStatus = ref.watch(selectedStatusFilterProvider);
     final taskRepo = ref.watch(taskRepositoryProvider);
 
-    // Hitung tugas per jurusan
+    // Hitung tugas aktif per jurusan
     final rplCount = ref.watch(categoryActiveCountProvider('rpl'));
     final tkjCount = ref.watch(categoryActiveCountProvider('tkj'));
     final dkvCount = ref.watch(categoryActiveCountProvider('dkv'));
@@ -138,7 +152,7 @@ class HomeScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, _) => Center(child: Text('Terjadi kesalahan: $err')),
         data: (allTasks) {
-          // Filter tugas untuk to-do list
+          // Filter tugas untuk to-do list (status & search)
           var tasksList = allTasks;
           if (selectedStatus != null) {
             tasksList = tasksList
@@ -146,9 +160,19 @@ class HomeScreen extends ConsumerWidget {
                 .toList();
           }
 
+          if (_searchQuery.trim().isNotEmpty) {
+            final q = _searchQuery.trim().toLowerCase();
+            tasksList = tasksList.where((t) {
+              final inTitle = t.task.title.toLowerCase().contains(q);
+              final inSubject = t.subject.name.toLowerCase().contains(q);
+              final inNotes = t.task.notes?.toLowerCase().contains(q) ?? false;
+              return inTitle || inSubject || inNotes;
+            }).toList();
+          }
+
           return CustomScrollView(
             slivers: [
-              // 1. Sapaan & Banner
+              // 1. Sapaan & Banner Ringkasan
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
@@ -215,14 +239,6 @@ class HomeScreen extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Pilih jurusan untuk melihat tugas kejuruan terkait',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: tokens.textMuted,
-                        ),
-                      ),
                       const SizedBox(height: 12),
 
                       // Kartu RPL
@@ -276,14 +292,6 @@ class HomeScreen extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'PAI, PKK, PPKn, B. Indo, B. Inggris, MTK, dll.',
-                        style: TextStyle(
-                          fontSize: 12.5,
-                          color: tokens.textMuted,
-                        ),
-                      ),
                       const SizedBox(height: 12),
 
                       // Kartu Mapel Umum
@@ -332,6 +340,60 @@ class HomeScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 10),
 
+                      // Search Bar
+                      Container(
+                        decoration: BoxDecoration(
+                          color: tokens.cardBg,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: tokens.borderColor,
+                            width: 1,
+                          ),
+                        ),
+                        child: TextField(
+                          controller: _searchController,
+                          onChanged: (val) {
+                            setState(() => _searchQuery = val);
+                          },
+                          style: TextStyle(
+                            fontFamily: 'SpaceGrotesk',
+                            fontSize: 13.5,
+                            color: tokens.textPrimary,
+                          ),
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 10,
+                            ),
+                            hintText: 'Cari tugas, mapel, atau catatan...',
+                            hintStyle: TextStyle(
+                              fontSize: 13,
+                              color: tokens.textMuted,
+                            ),
+                            prefixIcon: Icon(
+                              Icons.search_rounded,
+                              size: 20,
+                              color: tokens.textMuted,
+                            ),
+                            suffixIcon: _searchQuery.isNotEmpty
+                                ? IconButton(
+                                    icon: const Icon(Icons.clear_rounded,
+                                        size: 18),
+                                    onPressed: () {
+                                      _searchController.clear();
+                                      setState(() => _searchQuery = '');
+                                    },
+                                  )
+                                : null,
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+
                       // Filter Status Pills
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -341,8 +403,9 @@ class HomeScreen extends ConsumerWidget {
                               label: 'Semua Status',
                               isSelected: selectedStatus == null,
                               onTap: () {
-                                ref.read(selectedStatusFilterProvider.notifier).state =
-                                    null;
+                                ref
+                                    .read(selectedStatusFilterProvider.notifier)
+                                    .state = null;
                               },
                             ),
                             const SizedBox(width: 8),
@@ -351,18 +414,21 @@ class HomeScreen extends ConsumerWidget {
                               isSelected: selectedStatus == TaskStatus.todo,
                               activeColor: AppColors.statusTodo,
                               onTap: () {
-                                ref.read(selectedStatusFilterProvider.notifier).state =
-                                    TaskStatus.todo;
+                                ref
+                                    .read(selectedStatusFilterProvider.notifier)
+                                    .state = TaskStatus.todo;
                               },
                             ),
                             const SizedBox(width: 8),
                             NeoBrutalChip(
                               label: 'Sedang Dikerjakan',
-                              isSelected: selectedStatus == TaskStatus.inProgress,
+                              isSelected:
+                                  selectedStatus == TaskStatus.inProgress,
                               activeColor: AppColors.statusProgress,
                               onTap: () {
-                                ref.read(selectedStatusFilterProvider.notifier).state =
-                                    TaskStatus.inProgress;
+                                ref
+                                    .read(selectedStatusFilterProvider.notifier)
+                                    .state = TaskStatus.inProgress;
                               },
                             ),
                             const SizedBox(width: 8),
@@ -371,8 +437,9 @@ class HomeScreen extends ConsumerWidget {
                               isSelected: selectedStatus == TaskStatus.done,
                               activeColor: AppColors.statusDone,
                               onTap: () {
-                                ref.read(selectedStatusFilterProvider.notifier).state =
-                                    TaskStatus.done;
+                                ref
+                                    .read(selectedStatusFilterProvider.notifier)
+                                    .state = TaskStatus.done;
                               },
                             ),
                           ],
@@ -389,12 +456,25 @@ class HomeScreen extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 24.0),
                     child: NeoBrutalEmptyState(
-                      title: 'Tidak ada tugas',
-                      message: selectedStatus != null
-                          ? 'Tidak ada tugas dengan status tersebut.'
-                          : 'Belum ada tugas yang dicatat. Ketuk tombol Tambah Tugas untuk mulai membuat to-do list.',
-                      actionLabel: 'Tambah Tugas',
-                      onAction: () => context.push('/tasks/add'),
+                      title: _searchQuery.isNotEmpty
+                          ? 'Tidak ada hasil'
+                          : 'Tidak ada tugas',
+                      message: _searchQuery.isNotEmpty
+                          ? 'Tidak ditemukan tugas yang cocok dengan "$_searchQuery".'
+                          : selectedStatus != null
+                              ? 'Tidak ada tugas dengan status tersebut.'
+                              : 'Belum ada tugas yang dicatat. Ketuk tombol Tambah Tugas untuk mulai membuat to-do list.',
+                      actionLabel: _searchQuery.isNotEmpty
+                          ? 'Hapus Pencarian'
+                          : 'Tambah Tugas',
+                      onAction: () {
+                        if (_searchQuery.isNotEmpty) {
+                          _searchController.clear();
+                          setState(() => _searchQuery = '');
+                        } else {
+                          context.push('/tasks/add');
+                        }
+                      },
                     ),
                   ),
                 )

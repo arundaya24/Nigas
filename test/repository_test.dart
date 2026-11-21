@@ -249,6 +249,7 @@ void main() {
       var settings = await settingsRepo.getSettings();
       expect(settings.hasCompletedOnboarding, isFalse);
       expect(settings.selectedMajor, isNull);
+      expect(settings.notificationsEnabled, isTrue);
 
       // Selesaikan onboarding untuk RPL
       await settingsRepo.completeOnboarding('RPL');
@@ -257,6 +258,66 @@ void main() {
       expect(settings.hasCompletedOnboarding, isTrue);
       expect(settings.selectedMajor, 'RPL');
       expect(await settingsRepo.hasCompletedOnboarding(), isTrue);
+    });
+
+    test('Toggle notificationsEnabled setting', () async {
+      await settingsRepo.saveNotificationsEnabled(false);
+      var settings = await settingsRepo.getSettings();
+      expect(settings.notificationsEnabled, isFalse);
+
+      await settingsRepo.saveNotificationsEnabled(true);
+      settings = await settingsRepo.getSettings();
+      expect(settings.notificationsEnabled, isTrue);
+    });
+
+    test('clearCompletedTasks deletes only completed tasks and subtasks', () async {
+      final subId = await subjectRepo.createSubject(name: 'Sejarah', colorIndex: 1);
+      final now = DateTime.now();
+
+      await taskRepo.createTask(
+        title: 'Tugas Belum Selesai',
+        subjectId: subId,
+        dueAt: now.add(const Duration(days: 1)),
+        subtasks: ['Langkah 1'],
+      );
+
+      final task2Id = await taskRepo.createTask(
+        title: 'Tugas Selesai',
+        subjectId: subId,
+        dueAt: now.add(const Duration(days: 1)),
+        subtasks: ['Langkah Selesai'],
+      );
+      await taskRepo.toggleTaskDone(task2Id, true);
+
+      final clearedCount = await settingsRepo.clearCompletedTasks();
+      expect(clearedCount, 1);
+
+      final allTasks = await db.select(db.tasks).get();
+      expect(allTasks.length, 1);
+      expect(allTasks.first.title, 'Tugas Belum Selesai');
+    });
+
+    test('resetAllData clears tasks and restores default SMK templates', () async {
+      final subId = await subjectRepo.createSubject(name: 'Kustom', colorIndex: 2);
+      await taskRepo.createTask(
+        title: 'Tugas Uji Coba',
+        subjectId: subId,
+        dueAt: DateTime.now(),
+      );
+
+      await settingsRepo.resetAllData();
+
+      final remainingTasks = await db.select(db.tasks).get();
+      expect(remainingTasks, isEmpty);
+
+      final remainingSubtasks = await db.select(db.subtasks).get();
+      expect(remainingSubtasks, isEmpty);
+
+      final subjects = await db.select(db.subjects).get();
+      // Seluruh template bawaan dipulihkan
+      expect(subjects.isNotEmpty, isTrue);
+      expect(subjects.any((s) => s.name == 'MTK'), isTrue);
+      expect(subjects.any((s) => s.name == 'PAD'), isTrue);
     });
   });
 }

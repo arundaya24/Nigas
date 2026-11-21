@@ -1,5 +1,7 @@
+import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import '../../../core/db/app_database.dart';
+import '../../subjects/domain/smk_category.dart';
 import '../domain/app_settings.dart';
 import '../domain/settings_repository.dart';
 
@@ -46,13 +48,10 @@ class SettingsRepositoryImpl implements SettingsRepository {
     }
   }
 
-  @override
-  Future<AppSettingsData> getSettings() async {
-    final entries = await _db.select(_db.appSettingsTable).get();
-    final map = {for (final e in entries) e.key: e.value};
-
+  AppSettingsData _mapToSettings(Map<String, String> map) {
     final major = map[AppSettingsKeys.selectedMajor];
     final themeMode = _parseThemeMode(map[AppSettingsKeys.themeMode]);
+    final notifEnabled = map[AppSettingsKeys.notificationsEnabled] != 'false';
 
     final d1Hour = int.tryParse(map[AppSettingsKeys.reminderD1Hour] ?? '') ??
         ReminderTimeDefaults.d1Hour;
@@ -72,6 +71,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
     return AppSettingsData(
       selectedMajor: major,
       themeMode: themeMode,
+      notificationsEnabled: notifEnabled,
       reminderD1: TimeOfDay(hour: d1Hour, minute: d1Minute),
       reminderD0: TimeOfDay(hour: d0Hour, minute: d0Minute),
       hasCompletedOnboarding: hasCompleted,
@@ -79,41 +79,28 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
+  Future<AppSettingsData> getSettings() async {
+    final entries = await _db.select(_db.appSettingsTable).get();
+    final map = {for (final e in entries) e.key: e.value};
+    return _mapToSettings(map);
+  }
+
+  @override
   Stream<AppSettingsData> watchSettings() {
     return _db.select(_db.appSettingsTable).watch().map((entries) {
       final map = {for (final e in entries) e.key: e.value};
-
-      final major = map[AppSettingsKeys.selectedMajor];
-      final themeMode = _parseThemeMode(map[AppSettingsKeys.themeMode]);
-
-      final d1Hour = int.tryParse(map[AppSettingsKeys.reminderD1Hour] ?? '') ??
-          ReminderTimeDefaults.d1Hour;
-      final d1Minute =
-          int.tryParse(map[AppSettingsKeys.reminderD1Minute] ?? '') ??
-              ReminderTimeDefaults.d1Minute;
-
-      final d0Hour = int.tryParse(map[AppSettingsKeys.reminderD0Hour] ?? '') ??
-          ReminderTimeDefaults.d0Hour;
-      final d0Minute =
-          int.tryParse(map[AppSettingsKeys.reminderD0Minute] ?? '') ??
-              ReminderTimeDefaults.d0Minute;
-
-      final hasCompleted =
-          map[AppSettingsKeys.hasCompletedOnboarding] == 'true';
-
-      return AppSettingsData(
-        selectedMajor: major,
-        themeMode: themeMode,
-        reminderD1: TimeOfDay(hour: d1Hour, minute: d1Minute),
-        reminderD0: TimeOfDay(hour: d0Hour, minute: d0Minute),
-        hasCompletedOnboarding: hasCompleted,
-      );
+      return _mapToSettings(map);
     });
   }
 
   @override
   Future<void> saveThemeMode(ThemeMode mode) async {
     await _setValue(AppSettingsKeys.themeMode, _themeModeToString(mode));
+  }
+
+  @override
+  Future<void> saveNotificationsEnabled(bool enabled) async {
+    await _setValue(AppSettingsKeys.notificationsEnabled, enabled.toString());
   }
 
   @override
@@ -143,6 +130,52 @@ class SettingsRepositoryImpl implements SettingsRepository {
   Future<bool> hasCompletedOnboarding() async {
     final value = await _getValue(AppSettingsKeys.hasCompletedOnboarding);
     return value == 'true';
+  }
+
+  @override
+  Future<int> clearCompletedTasks() async {
+    final completedTasks = await (_db.select(_db.tasks)
+          ..where((t) => t.isDone.equals(true) | t.status.equals('done')))
+        .get();
+
+    final count = completedTasks.length;
+    if (count == 0) return 0;
+
+    final taskIds = completedTasks.map((t) => t.id).toList();
+
+    await _db.transaction(() async {
+      await (_db.delete(_db.subtasks)..where((s) => s.taskId.isIn(taskIds))).go();
+      await (_db.delete(_db.tasks)..where((t) => t.id.isIn(taskIds))).go();
+    });
+
+    return count;
+  }
+
+  @override
+  Future<void> resetAllData() async {
+    await _db.transaction(() async {
+      await _db.delete(_db.subtasks).go();
+      await _db.delete(_db.tasks).go();
+      await _db.delete(_db.subjects).go();
+      await _db.delete(_db.appSettingsTable).go();
+    });
+
+    // Seed ulang seluruh template bawaan
+    await _db.transaction(() async {
+      for (final cat in SmkCategory.all) {
+        for (int i = 0; i < cat.templateSubjects.length; i++) {
+          final name = cat.templateSubjects[i];
+          await _db.into(_db.subjects).insert(
+                SubjectsCompanion.insert(
+                  name: name,
+                  category: Value(cat.code),
+                  colorIndex: Value(i % 8),
+                  isPreset: const Value(true),
+                ),
+              );
+        }
+      }
+    });
   }
 }
 

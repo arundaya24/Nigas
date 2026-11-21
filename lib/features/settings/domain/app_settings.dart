@@ -6,6 +6,7 @@ class AppSettingsKeys {
 
   static const String selectedMajor = 'selected_major';
   static const String themeMode = 'theme_mode';
+  static const String notificationsEnabled = 'notifications_enabled';
   static const String reminderD1Hour = 'reminder_d1_hour';
   static const String reminderD1Minute = 'reminder_d1_minute';
   static const String reminderD0Hour = 'reminder_d0_hour';
@@ -27,6 +28,7 @@ class ReminderTimeDefaults {
 class AppSettingsData {
   final String? selectedMajor;
   final ThemeMode themeMode;
+  final bool notificationsEnabled;
   final TimeOfDay reminderD1;
   final TimeOfDay reminderD0;
   final bool hasCompletedOnboarding;
@@ -34,6 +36,7 @@ class AppSettingsData {
   const AppSettingsData({
     this.selectedMajor,
     this.themeMode = ThemeMode.system,
+    this.notificationsEnabled = true,
     this.reminderD1 = const TimeOfDay(
       hour: ReminderTimeDefaults.d1Hour,
       minute: ReminderTimeDefaults.d1Minute,
@@ -48,6 +51,7 @@ class AppSettingsData {
   AppSettingsData copyWith({
     String? selectedMajor,
     ThemeMode? themeMode,
+    bool? notificationsEnabled,
     TimeOfDay? reminderD1,
     TimeOfDay? reminderD0,
     bool? hasCompletedOnboarding,
@@ -55,6 +59,8 @@ class AppSettingsData {
     return AppSettingsData(
       selectedMajor: selectedMajor ?? this.selectedMajor,
       themeMode: themeMode ?? this.themeMode,
+      notificationsEnabled:
+          notificationsEnabled ?? this.notificationsEnabled,
       reminderD1: reminderD1 ?? this.reminderD1,
       reminderD0: reminderD0 ?? this.reminderD0,
       hasCompletedOnboarding:

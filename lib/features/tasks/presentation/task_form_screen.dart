@@ -211,6 +211,8 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
       body: _isLoading && isEditMode
           ? const Center(child: CircularProgressIndicator())
           : ListView(
+              keyboardDismissBehavior:
+                  ScrollViewKeyboardDismissBehavior.onDrag,
               padding: const EdgeInsets.all(16.0),
               children: [
                 // 1. Pilih Kategori Jurusan / Umum

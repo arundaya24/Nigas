@@ -185,4 +185,58 @@ void main() {
     await tester.pumpWidget(const SizedBox());
     await tester.pump(const Duration(seconds: 1));
   });
+
+  testWidgets('HomeScreen live search filters tasks properly', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 2400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(() {
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
+    });
+
+    final subId = await subjectRepo.createSubject(
+      name: 'Pemrograman Web',
+      colorIndex: 0,
+      category: 'rpl',
+    );
+    await taskRepo.createTask(
+      title: 'Tugas Belajar Vue.js',
+      subjectId: subId,
+      dueAt: DateTime.now().add(const Duration(days: 2)),
+    );
+    await taskRepo.createTask(
+      title: 'Praktikum Routing Cisco',
+      subjectId: subId,
+      dueAt: DateTime.now().add(const Duration(days: 3)),
+    );
+
+    await tester.pumpWidget(createHomeScreen());
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+
+    expect(find.text('Tugas Belajar Vue.js'), findsOneWidget);
+    expect(find.text('Praktikum Routing Cisco'), findsOneWidget);
+
+    // Cari 'Vue'
+    await tester.enterText(find.byType(TextField).first, 'Vue');
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+
+    expect(find.text('Tugas Belajar Vue.js'), findsOneWidget);
+    expect(find.text('Praktikum Routing Cisco'), findsNothing);
+
+    // Cari kata yang tidak ada
+    await tester.enterText(find.byType(TextField).first, 'Mikrotik');
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+
+    expect(find.text('Tugas Belajar Vue.js'), findsNothing);
+    expect(find.text('Praktikum Routing Cisco'), findsNothing);
+    expect(find.text('Tidak ada hasil'), findsOneWidget);
+
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 1));
+  });
 }

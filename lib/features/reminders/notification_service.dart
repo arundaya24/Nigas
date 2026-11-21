@@ -126,7 +126,7 @@ class NotificationService {
     required String subjectName,
     required AppSettingsData settings,
   }) async {
-    if (kIsWeb || !_isInitialized) return;
+    if (kIsWeb || !_isInitialized || !settings.notificationsEnabled) return;
 
     // Hitung jadwal notifikasi via fungsi murni ReminderCalculator
     final schedules = ReminderCalculator.calculateReminders(

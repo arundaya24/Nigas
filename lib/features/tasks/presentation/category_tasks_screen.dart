@@ -218,10 +218,11 @@ class _CategoryTasksScreenState extends ConsumerState<CategoryTasksScreen> {
                           }),
                           Padding(
                             padding: const EdgeInsets.only(right: 8.0),
-                            child: ActionChip(
-                              label: const Text('+ Tambah Mapel'),
-                              avatar: const Icon(Icons.add, size: 16),
-                              onPressed: () async {
+                            child: NeoBrutalChip(
+                              label: 'Tambah Mapel',
+                              leading: const Icon(Icons.add_rounded, size: 16),
+                              isSelected: false,
+                              onTap: () async {
                                 final newSubjectId = await showAddSubjectDialog(
                                   context,
                                   prefilledCategory: widget.categoryCode,
