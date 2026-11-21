@@ -342,6 +342,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                       // Search Bar
                       Container(
+                        clipBehavior: Clip.antiAlias,
                         decoration: BoxDecoration(
                           color: tokens.cardBg,
                           borderRadius: BorderRadius.circular(12),
@@ -361,6 +362,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             color: tokens.textPrimary,
                           ),
                           decoration: InputDecoration(
+                            filled: false,
+                            fillColor: Colors.transparent,
                             isDense: true,
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 12,
