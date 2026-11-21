@@ -488,7 +488,7 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                     Switch(
                       value: settings.notificationsEnabled,
-                      activeColor: AppColors.primary,
+                      activeThumbColor: AppColors.primary,
                       onChanged: (val) async {
                         if (val) {
                           await NotificationService.instance
