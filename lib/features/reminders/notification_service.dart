@@ -172,6 +172,20 @@ class NotificationService {
           payload: task.id.toString(),
         );
       } catch (e) {
+        // Fallback ke inexact jika exact alarm tidak diizinkan di perangkat
+        try {
+          await _plugin.zonedSchedule(
+            d1Id,
+            'Pengingat Besok: ${task.title}',
+            'Tugas mapel $subjectName memiliki deadline besok!',
+            tz.TZDateTime.from(schedules.d1DateTime!, tz.local),
+            notificationDetails,
+            androidScheduleMode: AndroidScheduleMode.inexact,
+            uiLocalNotificationDateInterpretation:
+                UILocalNotificationDateInterpretation.absoluteTime,
+            payload: task.id.toString(),
+          );
+        } catch (_) {}
         debugPrint('Gagal menjadwalkan notifikasi H-1: $e');
       }
     }
@@ -191,6 +205,20 @@ class NotificationService {
           payload: task.id.toString(),
         );
       } catch (e) {
+        // Fallback ke inexact jika exact alarm tidak diizinkan di perangkat
+        try {
+          await _plugin.zonedSchedule(
+            d0Id,
+            'Hari Ini Deadline: ${task.title}',
+            'Jangan lupa selesaikan dan kumpulkan tugas $subjectName hari ini!',
+            tz.TZDateTime.from(schedules.d0DateTime!, tz.local),
+            notificationDetails,
+            androidScheduleMode: AndroidScheduleMode.inexact,
+            uiLocalNotificationDateInterpretation:
+                UILocalNotificationDateInterpretation.absoluteTime,
+            payload: task.id.toString(),
+          );
+        } catch (_) {}
         debugPrint('Gagal menjadwalkan notifikasi Hari-H: $e');
       }
     }

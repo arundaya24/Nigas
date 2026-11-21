@@ -77,7 +77,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Pilih mapel dari Dropdown
-    await tester.tap(find.text('Pilih Mata Pelajaran'));
+    await tester.tap(find.text('Pilih Mata Pelajaran'), warnIfMissed: false);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Teknik Jaringan Komputer').last);
     await tester.pumpAndSettle();

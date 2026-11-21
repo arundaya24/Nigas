@@ -193,14 +193,24 @@ class TaskRepositoryImpl implements TaskRepository {
       await (_db.update(_db.tasks)..where((t) => t.id.equals(id))).write(companion);
 
       if (newSubtaskTitles != null) {
+        final existingSubtasks = await (_db.select(_db.subtasks)
+              ..where((s) => s.taskId.equals(id)))
+            .get();
+        final doneStatusMap = <String, bool>{
+          for (final s in existingSubtasks)
+            s.title.toLowerCase().trim(): s.isDone,
+        };
+
         await (_db.delete(_db.subtasks)..where((s) => s.taskId.equals(id))).go();
         for (int i = 0; i < newSubtaskTitles.length; i++) {
           final trimmed = newSubtaskTitles[i].trim();
           if (trimmed.isNotEmpty) {
+            final wasDone = doneStatusMap[trimmed.toLowerCase()] ?? false;
             await _db.into(_db.subtasks).insert(
                   SubtasksCompanion.insert(
                     taskId: id,
                     title: trimmed,
+                    isDone: Value(wasDone),
                     sortOrder: Value(i),
                   ),
                 );

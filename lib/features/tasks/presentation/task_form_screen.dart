@@ -46,8 +46,7 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
   String? _titleError;
   String? _subjectError;
   String? _deadlineError;
-  bool _isLoading = false;
-  bool _isInit = false;
+  late bool _isLoading = isEditMode;
 
   bool get isEditMode => widget.taskId != null;
 
@@ -57,14 +56,8 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
     _selectedCategory = widget.initialCategory ?? 'general';
     _selectedSubjectId = widget.initialSubjectId;
     _selectedDueAt = TaskFormValidator.defaultDeadline();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!_isInit && isEditMode) {
+    if (isEditMode) {
       _loadTaskData();
-      _isInit = true;
     }
   }
 

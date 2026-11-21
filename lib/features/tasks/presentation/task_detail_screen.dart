@@ -56,13 +56,16 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
     await repo.toggleSubtaskDone(subtask.id, isDone);
     await _loadTask();
 
-    if (_item != null &&
-        _item!.task.status != TaskStatus.done &&
-        _item!.allSubtasksDone &&
-        !_offeredDone &&
-        mounted) {
-      _offeredDone = true;
-      _showAllSubtasksDoneDialog();
+    if (_item != null) {
+      if (_item!.task.status != TaskStatus.done &&
+          _item!.allSubtasksDone &&
+          !_offeredDone &&
+          mounted) {
+        _offeredDone = true;
+        _showAllSubtasksDoneDialog();
+      } else if (!_item!.allSubtasksDone) {
+        _offeredDone = false;
+      }
     }
   }
 
@@ -129,6 +132,10 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                         final repo = ref.read(taskRepositoryProvider);
                         await repo.updateTaskStatus(
                             widget.taskId, TaskStatus.done);
+                        try {
+                          await NotificationService.instance
+                              .cancelTaskReminders(widget.taskId);
+                        } catch (_) {}
                         await _loadTask();
                       },
                     ),
@@ -319,6 +326,24 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
                   if (newStatus != null) {
                     final repo = ref.read(taskRepositoryProvider);
                     await repo.updateTaskStatus(item.task.id, newStatus);
+                    try {
+                      if (newStatus == TaskStatus.done) {
+                        await NotificationService.instance
+                            .cancelTaskReminders(item.task.id);
+                      } else if (item.task.status == TaskStatus.done) {
+                        final settings = await ref
+                            .read(settingsRepositoryProvider)
+                            .getSettings();
+                        await NotificationService.instance.scheduleTaskReminders(
+                          task: item.task.copyWith(
+                            status: newStatus,
+                            isDone: false,
+                          ),
+                          subjectName: item.subject.name,
+                          settings: settings,
+                        );
+                      }
+                    } catch (_) {}
                     await _loadTask();
                   }
                 },
@@ -536,10 +561,26 @@ class _TaskDetailScreenState extends ConsumerState<TaskDetailScreen> {
             text: isDone ? 'Kembalikan ke Belum Selesai' : 'Tandai Tugas Selesai',
             onPressed: () async {
               final repo = ref.read(taskRepositoryProvider);
-              await repo.updateTaskStatus(
-                item.task.id,
-                isDone ? TaskStatus.todo : TaskStatus.done,
-              );
+              final newStatus = isDone ? TaskStatus.todo : TaskStatus.done;
+              await repo.updateTaskStatus(item.task.id, newStatus);
+              try {
+                if (newStatus == TaskStatus.done) {
+                  await NotificationService.instance
+                      .cancelTaskReminders(item.task.id);
+                } else {
+                  final settings = await ref
+                      .read(settingsRepositoryProvider)
+                      .getSettings();
+                  await NotificationService.instance.scheduleTaskReminders(
+                    task: item.task.copyWith(
+                      status: newStatus,
+                      isDone: false,
+                    ),
+                    subjectName: item.subject.name,
+                    settings: settings,
+                  );
+                }
+              } catch (_) {}
               await _loadTask();
             },
           ),

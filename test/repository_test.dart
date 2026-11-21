@@ -110,6 +110,39 @@ void main() {
       expect(taskWithDetails.completedSubtasks, 0);
     });
 
+    test('Update task preserves isDone status of existing subtasks', () async {
+      final taskId = await taskRepo.createTask(
+        title: 'Tugas Jaringan',
+        subjectId: subjectId1,
+        dueAt: DateTime.now().add(const Duration(days: 3)),
+        subtasks: ['Krimp kabel UTP', 'Pasang Switch', 'Setting IP'],
+      );
+
+      final created = await taskRepo.getTaskById(taskId);
+      final subtask1 = created!.subtasks[0];
+      // Tandai subtask 1 selesai
+      await taskRepo.toggleSubtaskDone(subtask1.id, true);
+
+      // Edit task: ubah judul dan tambah subtask baru
+      await taskRepo.updateTask(
+        id: taskId,
+        title: 'Tugas Jaringan V2',
+        subjectId: subjectId1,
+        dueAt: DateTime.now().add(const Duration(days: 4)),
+        newSubtaskTitles: ['Krimp kabel UTP', 'Pasang Switch', 'Setting IP', 'Testing Ping'],
+      );
+
+      final updated = await taskRepo.getTaskById(taskId);
+      expect(updated!.task.title, 'Tugas Jaringan V2');
+      expect(updated.subtasks.length, 4);
+      // Status 'Krimp kabel UTP' harus tetap isDone = true
+      expect(updated.subtasks[0].isDone, isTrue);
+      // Subtugas lain tetap isDone = false
+      expect(updated.subtasks[1].isDone, isFalse);
+      expect(updated.subtasks[2].isDone, isFalse);
+      expect(updated.subtasks[3].isDone, isFalse);
+    });
+
     test('Toggle task done sets doneAt and updates stream', () async {
       final taskId = await taskRepo.createTask(
         title: 'Latihan Matriks',

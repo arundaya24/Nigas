@@ -30,11 +30,18 @@ class TaskDeadlinePicker extends StatelessWidget {
   }
 
   Future<void> _pickDate(BuildContext context) async {
+    final first = _effectiveDateTime.isBefore(DateTime(2020))
+        ? _effectiveDateTime.subtract(const Duration(days: 365))
+        : DateTime(2020);
+    final last = _effectiveDateTime.isAfter(DateTime(2040))
+        ? _effectiveDateTime.add(const Duration(days: 365))
+        : DateTime(2040);
+
     final pickedDate = await showDatePicker(
       context: context,
       initialDate: _effectiveDateTime,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2035),
+      firstDate: first,
+      lastDate: last,
     );
 
     if (pickedDate != null) {

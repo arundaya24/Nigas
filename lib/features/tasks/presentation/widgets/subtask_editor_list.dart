@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_strings.dart';
@@ -24,7 +25,7 @@ class SubtaskEditorList extends StatefulWidget {
 }
 
 class _SubtaskEditorListState extends State<SubtaskEditorList> {
-  late final List<String> _subtasks;
+  List<String> _subtasks = [];
   final TextEditingController _inputController = TextEditingController();
   String? _subtaskError;
 
@@ -32,6 +33,16 @@ class _SubtaskEditorListState extends State<SubtaskEditorList> {
   void initState() {
     super.initState();
     _subtasks = List.from(widget.initialSubtasks);
+  }
+
+  @override
+  void didUpdateWidget(covariant SubtaskEditorList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!listEquals(widget.initialSubtasks, oldWidget.initialSubtasks)) {
+      setState(() {
+        _subtasks = List.from(widget.initialSubtasks);
+      });
+    }
   }
 
   @override
