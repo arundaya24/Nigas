@@ -278,7 +278,7 @@ class HomeScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Matematika, Bahasa Indonesia, Bahasa Inggris, PPKn, dll.',
+                        'PAI, PKK, PPKn, B. Indo, B. Inggris, MTK, dll.',
                         style: TextStyle(
                           fontSize: 12.5,
                           color: tokens.textMuted,

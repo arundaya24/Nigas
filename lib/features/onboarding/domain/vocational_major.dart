@@ -27,14 +27,17 @@ class VocationalMajor {
 
 /// Daftar preset mata pelajaran umum untuk semua siswa SMK
 const List<PresetSubjectItem> kGeneralSubjects = [
-  PresetSubjectItem(name: 'Matematika', colorIndex: 0), // Yellow
-  PresetSubjectItem(name: 'Bahasa Indonesia', colorIndex: 4), // Pink
-  PresetSubjectItem(name: 'Bahasa Inggris', colorIndex: 2), // Blue
-  PresetSubjectItem(name: 'PPKn', colorIndex: 1), // Red
-  PresetSubjectItem(name: 'Pendidikan Agama & Budi Pekerti', colorIndex: 3), // Lime
-  PresetSubjectItem(name: 'PJOK', colorIndex: 5), // Orange
-  PresetSubjectItem(name: 'Sejarah Indonesia', colorIndex: 6), // Cyan
-  PresetSubjectItem(name: 'Seni Budaya', colorIndex: 7), // Purple
+  PresetSubjectItem(name: 'PAI', colorIndex: 0),
+  PresetSubjectItem(name: 'PKK', colorIndex: 1),
+  PresetSubjectItem(name: 'PPKn', colorIndex: 2),
+  PresetSubjectItem(name: 'B. Indo', colorIndex: 3),
+  PresetSubjectItem(name: 'B. Inggris', colorIndex: 4),
+  PresetSubjectItem(name: 'Sejarah', colorIndex: 5),
+  PresetSubjectItem(name: 'MTK', colorIndex: 6),
+  PresetSubjectItem(name: 'PJOK', colorIndex: 7),
+  PresetSubjectItem(name: 'B. Jepang', colorIndex: 0),
+  PresetSubjectItem(name: 'BTQ', colorIndex: 1),
+  PresetSubjectItem(name: 'BP/BK', colorIndex: 2),
 ];
 
 /// Daftar seluruh jurusan SMK yang didukung
@@ -44,10 +47,12 @@ const List<VocationalMajor> kVocationalMajors = [
     name: 'Teknik Komputer & Jaringan (TKJ)',
     description: 'Jaringan komputer, routing, server, dan administrasi sistem',
     vocationalSubjects: [
-      PresetSubjectItem(name: 'Administrasi Infrastruktur Jaringan', colorIndex: 2, isVocational: true),
-      PresetSubjectItem(name: 'Administrasi Sistem Jaringan', colorIndex: 6, isVocational: true),
-      PresetSubjectItem(name: 'Teknologi Jaringan Berbasis Luas (WAN)', colorIndex: 0, isVocational: true),
-      PresetSubjectItem(name: 'Teknologi Layanan Jaringan', colorIndex: 3, isVocational: true),
+      PresetSubjectItem(name: 'ASJ', colorIndex: 2, isVocational: true),
+      PresetSubjectItem(name: 'KEJAR', colorIndex: 6, isVocational: true),
+      PresetSubjectItem(name: 'KPJ', colorIndex: 0, isVocational: true),
+      PresetSubjectItem(name: 'DMIKRO', colorIndex: 3, isVocational: true),
+      PresetSubjectItem(name: 'TJKN', colorIndex: 1, isVocational: true),
+      PresetSubjectItem(name: 'PPJ', colorIndex: 5, isVocational: true),
     ],
   ),
   VocationalMajor(
@@ -55,10 +60,11 @@ const List<VocationalMajor> kVocationalMajors = [
     name: 'Rekayasa Perangkat Lunak (RPL)',
     description: 'Pengembangan aplikasi mobile, web, desktop, dan database',
     vocationalSubjects: [
-      PresetSubjectItem(name: 'Pemrograman Web & Perangkat Bergerak', colorIndex: 2, isVocational: true),
-      PresetSubjectItem(name: 'Pemrograman Berorientasi Objek', colorIndex: 0, isVocational: true),
-      PresetSubjectItem(name: 'Basis Data', colorIndex: 3, isVocational: true),
-      PresetSubjectItem(name: 'Pemodelan Perangkat Lunak', colorIndex: 5, isVocational: true),
+      PresetSubjectItem(name: 'PAD', colorIndex: 2, isVocational: true),
+      PresetSubjectItem(name: 'PWEB', colorIndex: 0, isVocational: true),
+      PresetSubjectItem(name: 'PPB', colorIndex: 3, isVocational: true),
+      PresetSubjectItem(name: 'UI/UX', colorIndex: 5, isVocational: true),
+      PresetSubjectItem(name: 'APS', colorIndex: 1, isVocational: true),
     ],
   ),
   VocationalMajor(
@@ -66,10 +72,12 @@ const List<VocationalMajor> kVocationalMajors = [
     name: 'Multimedia / DKV',
     description: 'Desain grafis, animasi 2D/3D, audio video, dan fotografi',
     vocationalSubjects: [
-      PresetSubjectItem(name: 'Desain Grafis Percetakan', colorIndex: 4, isVocational: true),
-      PresetSubjectItem(name: 'Animasi 2D dan 3D', colorIndex: 0, isVocational: true),
-      PresetSubjectItem(name: 'Teknik Pengolahan Audio & Video', colorIndex: 1, isVocational: true),
-      PresetSubjectItem(name: 'Fotografi & Desain Media Interaktif', colorIndex: 7, isVocational: true),
+      PresetSubjectItem(name: 'Fotografi', colorIndex: 4, isVocational: true),
+      PresetSubjectItem(name: 'Videografi', colorIndex: 0, isVocational: true),
+      PresetSubjectItem(name: 'KPD', colorIndex: 1, isVocational: true),
+      PresetSubjectItem(name: 'DP', colorIndex: 7, isVocational: true),
+      PresetSubjectItem(name: 'Desain Cetak', colorIndex: 2, isVocational: true),
+      PresetSubjectItem(name: 'AMG', colorIndex: 3, isVocational: true),
     ],
   ),
   VocationalMajor(

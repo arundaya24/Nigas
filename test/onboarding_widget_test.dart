@@ -59,10 +59,10 @@ void main() {
 
     // Verifikasi database telah diisi preset mapel umum + kejuruan RPL
     final subjects = await testDb.select(testDb.subjects).get();
-    // 8 umum + 4 kejuruan RPL = 12 mapel
-    expect(subjects.length, 12);
+    // 11 umum + 5 kejuruan RPL = 16 mapel
+    expect(subjects.length, 16);
     expect(
-      subjects.any((s) => s.name.contains('Pemrograman Web')),
+      subjects.any((s) => s.name == 'PWEB'),
       isTrue,
     );
   });

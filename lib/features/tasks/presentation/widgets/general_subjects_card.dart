@@ -147,10 +147,12 @@ class _GeneralSubjectsCardState extends State<GeneralSubjectsCard> {
                   spacing: 6,
                   runSpacing: 6,
                   children: [
-                    'Matematika',
-                    'B. Indonesia',
-                    'B. Inggris',
+                    'PAI',
+                    'PKK',
                     'PPKn',
+                    'B. Indo',
+                    'B. Inggris',
+                    'MTK',
                   ].map((mapel) {
                     return Container(
                       padding: const EdgeInsets.symmetric(

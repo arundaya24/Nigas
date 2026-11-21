@@ -32,13 +32,13 @@ void main() {
       await subjectRepo.seedSubjects(tkjMajor.vocationalSubjects);
 
       final subjects = await subjectRepo.getAllSubjects();
-      // 8 mapel umum + 4 mapel kejuruan TKJ = 12 mapel
-      expect(subjects.length, equals(12));
+      // 11 mapel umum + 6 mapel kejuruan TKJ = 17 mapel
+      expect(subjects.length, equals(17));
 
       // Verifikasi nama mapel tersimpan
       final names = subjects.map((s) => s.name).toList();
-      expect(names, contains('Matematika'));
-      expect(names, contains('Administrasi Infrastruktur Jaringan'));
+      expect(names, contains('MTK'));
+      expect(names, contains('ASJ'));
     });
 
     test('Create, update, and delete custom subject', () async {

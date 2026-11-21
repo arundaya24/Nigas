@@ -30,15 +30,16 @@ class SmkCategory {
     code: 'rpl',
     shortName: 'RPL',
     fullName: 'Rekayasa Perangkat Lunak',
-    description: 'Pemrograman web, mobile, basis data, dan algoritma',
+    description: 'PAD, PWEB, PPB, UI/UX, dan APS',
     icon: Icons.code_rounded,
     primaryColor: Color(0xFF64748B), // Abu-abu (Slate)
     lightColor: Color(0xFFF1F5F9),
     templateSubjects: [
-      'Pemrograman Web & Bergerak',
-      'Pemrograman Berorientasi Objek',
-      'Basis Data',
-      'Pemodelan Perangkat Lunak',
+      'PAD',
+      'PWEB',
+      'PPB',
+      'UI/UX',
+      'APS',
     ],
   );
 
@@ -46,15 +47,17 @@ class SmkCategory {
     code: 'tkj',
     shortName: 'TKJ',
     fullName: 'Teknik Komputer & Jaringan',
-    description: 'Jaringan komputer, routing, server, dan infrastruktur IT',
+    description: 'ASJ, KEJAR, KPJ, DMIKRO, TJKN, dan PPJ',
     icon: Icons.lan_rounded,
     primaryColor: Color(0xFF18181B), // Hitam (Onyx)
     lightColor: Color(0xFFE4E4E7),
     templateSubjects: [
-      'Administrasi Infrastruktur Jaringan',
-      'Administrasi Sistem Jaringan',
-      'Teknologi Jaringan Berbasis Luas (WAN)',
-      'Teknologi Layanan Jaringan',
+      'ASJ',
+      'KEJAR',
+      'KPJ',
+      'DMIKRO',
+      'TJKN',
+      'PPJ',
     ],
   );
 
@@ -62,15 +65,17 @@ class SmkCategory {
     code: 'dkv',
     shortName: 'DKV',
     fullName: 'Desain Komunikasi Visual',
-    description: 'Desain grafis, animasi 2D/3D, audio video, dan fotografi',
+    description: 'Fotografi, Videografi, KPD, DP, Desain Cetak, dan AMG',
     icon: Icons.palette_rounded,
     primaryColor: Color(0xFF1E3A8A), // Biru Tua (Navy)
     lightColor: Color(0xFFEFF6FF),
     templateSubjects: [
-      'Desain Grafis Percetakan',
-      'Animasi 2D dan 3D',
-      'Teknik Pengolahan Audio & Video',
-      'Fotografi & Media Interaktif',
+      'Fotografi',
+      'Videografi',
+      'KPD',
+      'DP',
+      'Desain Cetak',
+      'AMG',
     ],
   );
 
@@ -78,19 +83,22 @@ class SmkCategory {
     code: 'general',
     shortName: 'Mapel Umum',
     fullName: 'Mata Pelajaran Umum',
-    description: 'Matematika, Bahasa Indonesia, Bahasa Inggris, dll.',
+    description: 'PAI, PKK, PPKn, B. Indo, MTK, dll.',
     icon: Icons.auto_stories_rounded,
     primaryColor: Color(0xFF0F766E), // Teal Netral
     lightColor: Color(0xFFCCFBF1),
     templateSubjects: [
-      'Matematika',
-      'Bahasa Indonesia',
-      'Bahasa Inggris',
+      'PAI',
+      'PKK',
       'PPKn',
-      'Pendidikan Agama & Budi Pekerti',
+      'B. Indo',
+      'B. Inggris',
+      'Sejarah',
+      'MTK',
       'PJOK',
-      'Sejarah Indonesia',
-      'Seni Budaya',
+      'B. Jepang',
+      'BTQ',
+      'BP/BK',
     ],
   );
 
