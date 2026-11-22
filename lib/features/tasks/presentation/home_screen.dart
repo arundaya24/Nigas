@@ -343,6 +343,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       // Search Bar
                       Container(
                         clipBehavior: Clip.antiAlias,
+                        height: 42,
                         decoration: BoxDecoration(
                           color: tokens.cardBg,
                           borderRadius: BorderRadius.circular(12),
@@ -351,47 +352,65 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             width: 1,
                           ),
                         ),
-                        child: TextField(
-                          controller: _searchController,
-                          onChanged: (val) {
-                            setState(() => _searchQuery = val);
-                          },
-                          style: TextStyle(
-                            fontFamily: 'SpaceGrotesk',
-                            fontSize: 13.5,
-                            color: tokens.textPrimary,
-                          ),
-                          decoration: InputDecoration(
-                            filled: false,
-                            fillColor: Colors.transparent,
-                            isDense: false,
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 12,
+                        child: Center(
+                          child: TextField(
+                            controller: _searchController,
+                            onChanged: (val) {
+                              setState(() => _searchQuery = val);
+                            },
+                            style: TextStyle(
+                              fontFamily: 'SpaceGrotesk',
+                              fontSize: 13.5,
+                              color: tokens.textPrimary,
+                              height: 1.2,
                             ),
-                            hintText: 'Cari tugas, mapel, atau catatan...',
-                            hintStyle: TextStyle(
-                              fontSize: 13,
-                              color: tokens.textMuted,
+                            textAlignVertical: TextAlignVertical.center,
+                            decoration: InputDecoration(
+                              filled: false,
+                              fillColor: Colors.transparent,
+                              isDense: true,
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 0,
+                              ),
+                              hintText: 'Cari tugas, mapel, atau catatan...',
+                              hintStyle: TextStyle(
+                                fontSize: 13,
+                                color: tokens.textMuted,
+                                height: 1.2,
+                              ),
+                              prefixIcon: Icon(
+                                Icons.search_rounded,
+                                size: 20,
+                                color: tokens.textMuted,
+                              ),
+                              prefixIconConstraints: const BoxConstraints(
+                                minWidth: 40,
+                                minHeight: 20,
+                              ),
+                              suffixIcon: _searchQuery.isNotEmpty
+                                  ? IconButton(
+                                      icon: const Icon(Icons.clear_rounded,
+                                          size: 18),
+                                      onPressed: () {
+                                        _searchController.clear();
+                                        setState(() => _searchQuery = '');
+                                      },
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(
+                                        minWidth: 36,
+                                        minHeight: 20,
+                                      ),
+                                    )
+                                  : null,
+                              suffixIconConstraints: const BoxConstraints(
+                                minWidth: 36,
+                                minHeight: 20,
+                              ),
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
                             ),
-                            prefixIcon: Icon(
-                              Icons.search_rounded,
-                              size: 20,
-                              color: tokens.textMuted,
-                            ),
-                            suffixIcon: _searchQuery.isNotEmpty
-                                ? IconButton(
-                                    icon: const Icon(Icons.clear_rounded,
-                                        size: 18),
-                                    onPressed: () {
-                                      _searchController.clear();
-                                      setState(() => _searchQuery = '');
-                                    },
-                                  )
-                                : null,
-                            border: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
                           ),
                         ),
                       ),
