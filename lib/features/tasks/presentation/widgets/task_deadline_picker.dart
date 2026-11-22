@@ -60,6 +60,19 @@ class TaskDeadlinePicker extends StatelessWidget {
     final pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(_effectiveDateTime),
+      builder: (ctx, child) {
+        // Reset inputDecorationTheme agar padding dan border global
+        // tidak mengganggu layout internal TimePicker text input mode.
+        // Tanpa ini, contentPadding(vertical:14) + OutlineInputBorder(r:12)
+        // menyebabkan BoxConstraints NOT NORMALIZED pada layar kecil.
+        final theme = Theme.of(ctx);
+        return Theme(
+          data: theme.copyWith(
+            inputDecorationTheme: const InputDecorationTheme(),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (pickedTime != null) {

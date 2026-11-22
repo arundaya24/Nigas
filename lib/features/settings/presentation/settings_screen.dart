@@ -25,6 +25,17 @@ class SettingsScreen extends ConsumerWidget {
     final picked = await showTimePicker(
       context: context,
       initialTime: initialTime,
+      builder: (ctx, child) {
+        // Reset inputDecorationTheme agar padding dan border global
+        // tidak mengganggu layout internal TimePicker text input mode.
+        final theme = Theme.of(ctx);
+        return Theme(
+          data: theme.copyWith(
+            inputDecorationTheme: const InputDecorationTheme(),
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null) {
       await onSaved(picked);
