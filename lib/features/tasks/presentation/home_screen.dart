@@ -364,10 +364,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           decoration: InputDecoration(
                             filled: false,
                             fillColor: Colors.transparent,
-                            isDense: true,
+                            isDense: false,
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 12,
-                              vertical: 10,
+                              vertical: 12,
                             ),
                             hintText: 'Cari tugas, mapel, atau catatan...',
                             hintStyle: TextStyle(

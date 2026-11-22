@@ -23,10 +23,25 @@ class MajorCard extends StatefulWidget {
 class _MajorCardState extends State<MajorCard> {
   bool _isHovered = false;
 
+  /// Returns true if [color] is too dark to show dark text on top of it,
+  /// based on its relative luminance. Threshold: 0.18 (empirical).
+  bool _isDarkColor(Color color) => color.computeLuminance() < 0.18;
+
   @override
   Widget build(BuildContext context) {
     final tokens = context.brutalTheme;
     final cat = widget.category;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    // For categories whose primaryColor is very dark (e.g. TKJ = #18181B),
+    // switch badge/chip text to tokens.textPrimary so it's always readable.
+    final bool useFallbackColor =
+        isDarkMode && _isDarkColor(cat.primaryColor);
+    final Color effectiveAccentColor =
+        useFallbackColor ? tokens.textPrimary : cat.primaryColor;
+    final Color effectiveAccentBg = useFallbackColor
+        ? tokens.borderColor.withValues(alpha: 0.5)
+        : cat.primaryColor.withValues(alpha: 0.12);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
@@ -68,12 +83,14 @@ class _MajorCardState extends State<MajorCard> {
                       width: 44,
                       height: 44,
                       decoration: BoxDecoration(
-                        color: cat.lightColor,
+                        color: isDarkMode
+                            ? tokens.borderColor.withValues(alpha: 0.5)
+                            : cat.lightColor,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Icon(
                         cat.icon,
-                        color: cat.primaryColor,
+                        color: effectiveAccentColor,
                         size: 24,
                       ),
                     ),
@@ -107,7 +124,7 @@ class _MajorCardState extends State<MajorCard> {
                                 ),
                                 decoration: BoxDecoration(
                                   color: widget.activeTaskCount > 0
-                                      ? cat.primaryColor.withValues(alpha: 0.12)
+                                      ? effectiveAccentBg
                                       : tokens.borderColor.withValues(alpha: 0.5),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -119,7 +136,7 @@ class _MajorCardState extends State<MajorCard> {
                                     fontSize: 11,
                                     fontWeight: FontWeight.w700,
                                     color: widget.activeTaskCount > 0
-                                        ? cat.primaryColor
+                                        ? effectiveAccentColor
                                         : tokens.textMuted,
                                   ),
                                 ),
@@ -143,13 +160,13 @@ class _MajorCardState extends State<MajorCard> {
                       width: 32,
                       height: 32,
                       decoration: BoxDecoration(
-                        color: tokens.scaffoldBg,
+                        color: tokens.borderColor.withValues(alpha: 0.4),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Icon(
                         Icons.arrow_forward_ios_rounded,
                         size: 14,
-                        color: cat.primaryColor,
+                        color: tokens.textPrimary,
                       ),
                     ),
                   ],
@@ -191,7 +208,7 @@ class _MajorCardState extends State<MajorCard> {
                           vertical: 3.5,
                         ),
                         decoration: BoxDecoration(
-                          color: cat.lightColor,
+                          color: effectiveAccentBg,
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
@@ -199,7 +216,7 @@ class _MajorCardState extends State<MajorCard> {
                           style: TextStyle(
                             fontSize: 10.5,
                             fontWeight: FontWeight.w600,
-                            color: cat.primaryColor,
+                            color: effectiveAccentColor,
                           ),
                         ),
                       ),
