@@ -240,37 +240,42 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
   });
 
-  testWidgets('Search bar has rounded corners, anti-alias clip, and un-filled input', (
-    WidgetTester tester,
-  ) async {
-    tester.view.physicalSize = const Size(800, 2400);
-    tester.view.devicePixelRatio = 1.0;
-    addTearDown(() {
-      tester.view.resetPhysicalSize();
-      tester.view.resetDevicePixelRatio();
-    });
+  testWidgets(
+    'Search bar has rounded corners, anti-alias clip, and un-filled input',
+    (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(800, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
 
-    await tester.pumpWidget(createHomeScreen());
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpWidget(createHomeScreen());
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
 
-    // Find the TextField and its parent Container
-    final searchTextField = tester.widget<TextField>(find.byType(TextField).first);
-    expect(searchTextField.decoration?.filled, isFalse);
+      // Find the TextField and its parent Container
+      final searchTextField = tester.widget<TextField>(
+        find.byType(TextField).first,
+      );
+      expect(searchTextField.decoration?.filled, isFalse);
 
-    // Find parent Container of the search TextField
-    final containerFinder = find.ancestor(
-      of: find.byType(TextField).first,
-      matching: find.byType(Container),
-    ).first;
-    final containerWidget = tester.widget<Container>(containerFinder);
+      // Find parent Container of the search TextField
+      final containerFinder = find
+          .ancestor(
+            of: find.byType(TextField).first,
+            matching: find.byType(Container),
+          )
+          .first;
+      final containerWidget = tester.widget<Container>(containerFinder);
 
-    expect(containerWidget.clipBehavior, Clip.antiAlias);
-    final decoration = containerWidget.decoration as BoxDecoration;
-    expect(decoration.borderRadius, BorderRadius.circular(12));
-    expect(decoration.border, isNotNull);
+      expect(containerWidget.clipBehavior, Clip.antiAlias);
+      final decoration = containerWidget.decoration as BoxDecoration;
+      expect(decoration.borderRadius, BorderRadius.circular(12));
+      expect(decoration.border, isNotNull);
 
-    await tester.pumpWidget(const SizedBox());
-    await tester.pump(const Duration(seconds: 1));
-  });
+      await tester.pumpWidget(const SizedBox());
+      await tester.pump(const Duration(seconds: 1));
+    },
+  );
 }
