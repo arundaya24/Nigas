@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../../core/theme/neo_brutal_tokens.dart';
 import '../../domain/task_status.dart';
 
@@ -12,11 +13,17 @@ Future<TaskStatus?> showTaskStatusPicker(
   return showModalBottomSheet<TaskStatus>(
     context: context,
     backgroundColor: tokens.cardBg,
+    // isScrollControlled + useSafeArea mencegah BoxConstraints NOT NORMALIZED
+    // ketika keyboard terbuka atau ruang layar sangat sempit.
+    isScrollControlled: true,
+    useSafeArea: true,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (ctx) {
-      return SafeArea(
+      return Padding(
+        // Tambahkan padding untuk keyboard jika sheet dibuka saat keyboard muncul
+        padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(ctx).bottom),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: Column(
@@ -52,7 +59,10 @@ Future<TaskStatus?> showTaskStatusPicker(
                     onTap: () => Navigator.of(ctx).pop(status),
                     borderRadius: BorderRadius.circular(12),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
                       decoration: BoxDecoration(
                         color: isSelected
                             ? status.backgroundColor
@@ -85,7 +95,11 @@ Future<TaskStatus?> showTaskStatusPicker(
                             ),
                           ),
                           if (isSelected)
-                            Icon(Icons.check_rounded, color: status.color, size: 20),
+                            Icon(
+                              Icons.check_rounded,
+                              color: status.color,
+                              size: 20,
+                            ),
                         ],
                       ),
                     ),
@@ -100,4 +114,3 @@ Future<TaskStatus?> showTaskStatusPicker(
     },
   );
 }
-
