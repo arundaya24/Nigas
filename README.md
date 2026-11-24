@@ -1,172 +1,158 @@
-# Nigas ⚡
-> **Aplikasi pencatat dan pengelola tugas sekolah buat anak SMK.**  
-> Ringan, tanpa akun, 100% luring (offline-first), dan tampil beda dengan gaya neo-brutalisme modern.
+# Nigas
 
-[![Flutter Version](https://img.shields.io/badge/Flutter-3.24+-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
-[![Dart Version](https://img.shields.io/badge/Dart-3.5+-0175C2?logo=dart&logoColor=white)](https://dart.dev)
-[![Database](https://img.shields.io/badge/SQLite-Drift-003B57?logo=sqlite&logoColor=white)](https://drift.simonbinder.eu/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20Web-blue)](#)
+Nigas is an offline-first task tracker built with Flutter for vocational high school (SMK) students in Indonesia. It organizes coursework across vocational majors (RPL, TKJ, DKV) and general subjects, stores all data locally in SQLite, and fires scheduled deadline reminders without requiring user accounts or network access.
 
----
+## Prerequisites
 
-## 🎯 Kenapa Bikin Nigas?
+Before running the application, ensure the following toolchains are installed:
 
-Kalau kamu anak SMK, kamu pasti tahu rasanya waktu tugas kejuruan (praktikum, ngoding, instalasi jaringan, render video) mulai numpuk barengan sama tugas mapel umum. Banyak aplikasi to-do list di Play Store yang:
-- Terlalu ribet (harus register, verifikasi email, login Google).
-- Banyak iklan atau fitur berbayar.
-- Harus ada koneksi internet cuma buat nyatet PR besok pagi.
-- Formatnya kaku dan nggak ramah buat struktur mapel SMK.
+- Flutter SDK version 3.24.0 or higher
+- Dart SDK version 3.5.0 or higher
+- Android SDK with target API 34 and minimum API 21 (for Android builds)
+- Java Development Kit (JDK 11 or 17)
+- Google Chrome (if targeting Flutter Web with WASM SQLite support)
 
-**Nigas** dibuat sesimpel mungkin: install, buka, langsung catat. Semua data tersimpan aman di HP kamu, nggak dikirim ke server mana pun, dan bisa dipakai kapan aja tanpa kuota.
+Verify your environment with:
 
----
+```bash
+flutter doctor
+```
 
-## ✨ Fitur Andalan
+## Setup and Installation
 
-### 1. Template Jurusan SMK Siap Pakai
-Nggak perlu ngetik nama mapel satu-satu dari nol. Saat aplikasi pertama kali dibuka, Nigas sudah menyiapkan template mapel kejuruan dan umum:
-- **RPL (Rekayasa Perangkat Lunak):** `PAD`, `PWEB`, `PPB`, `UI/UX`, `APS`.
-- **TKJ (Teknik Komputer & Jaringan):** `ASJ`, `KEJAR`, `KPJ`, `DMIKRO`, `TJKN`, `PPJ`.
-- **DKV (Desain Komunikasi Visual):** `Fotografi`, `Videografi`, `KPD`, `DP`, `Desain Cetak`, `AMG`.
-- **Mata Pelajaran Umum:** `PAI`, `PKK`, `PPKn`, `B. Indo`, `B. Inggris`, `Sejarah`, `MTK`, `PJOK`, `B. Jepang`, `BTQ`, `BP/BK`.
-> *Kamu tetap bebas nambah, ganti nama, ubah warna tag, atau hapus mapel sesuai kurikulum sekolahmu lewat menu Pengaturan.*
+1. Clone the repository and navigate into the project directory:
 
-### 2. Checklist Subtugas (Step-by-Step)
-Tugas besar kayak "Proyek Web Laravel" atau "Bikin Banner Promosi" biasanya butuh beberapa tahapan. Kamu bisa pecah tugas jadi checklist subtugas kecil lengkap dengan progress bar otomatis. Begitu semua subtugas dicentang, aplikasi bakal nawarin buat langsung tandai tugas utama sebagai selesai.
+```bash
+git clone https://github.com/username/nigas.git
+cd "Project awal apliaksi Nigas"
+```
 
-### 3. Pengingat Deadline Lokal (H-1 & Hari-H)
-- Notifikasi berjalan 100% lokal di perangkatmu via `flutter_local_notifications` dan `timezone`.
-- Jadwal otomatis: **H-1** sore hari dan **Hari-H** pagi hari sebelum jam masuk sekolah.
-- Jam notifikasi bisa diatur sesuka hati lewat menu Pengaturan.
+2. Fetch Flutter packages:
 
-### 4. Navigasi & Filter Sat-Set
-- **Pencarian Cepat (Live Search):** Cari berdasarkan judul tugas, mapel, atau isi catatan tambahan.
-- **Filter Status:** Pisahkan antara tugas yang `Belum`, `Sedang Dikerjakan`, atau `Selesai`.
-- **Grup Deadline Cerdas:** Tugas otomatis dikelompokkan: *Lewat Deadline*, *Hari Ini*, *Besok*, *Minggu Ini*, dan *Nanti*.
+```bash
+flutter pub get
+```
 
-### 5. Desain Neo-Brutalisme yang Segar & Rapi
-- Menggunakan tipografi tegas (`Space Grotesk` untuk judul dan `Space Mono` untuk metadata/jam).
-- Border tebal dengan shadow retro yang konsisten.
-- Mendukung **Mode Terang** dan **Mode Gelap** yang nyaman di mata, plus deteksi otomatis dari tema sistem HP.
+3. Generate Drift database bindings:
 
-### 6. Privasi 100% & Manajemen Data
-- Tanpa pelacak, analitik, maupun koneksi eksternal.
-- Fitur **Bersihkan Tugas Selesai** untuk membersihkan daftar tanpa menghilangkan tugas yang masih aktif.
-- Opsi **Reset Data Pabrik** kalau mau mengulang dari awal.
+The repository includes pre-generated Drift files (`lib/core/db/app_database.g.dart`). If you modify database tables or queries in `lib/core/db/app_database.dart`, regenerate code using `build_runner`:
 
----
+```bash
+dart run build_runner build --delete-conflicting-outputs
+```
 
-## 🛠️ Tech Stack & Arsitektur
+4. Launch the application:
 
-Aplikasi ini dibangun menggunakan arsitektur fitur (*feature-first*) yang terpisah dan mudah dipelihara:
+For an Android device or emulator:
 
-| Komponen | Pustaka / Teknologi |
-|---|---|
-| **Framework** | [Flutter](https://flutter.dev) (Dart SDK 3.5+) |
-| **State Management** | [Flutter Riverpod](https://riverpod.dev) |
-| **Local Database** | [Drift (SQLite)](https://drift.simonbinder.eu) dengan reactive streams |
-| **Routing / Navigasi** | [GoRouter](https://pub.dev/packages/go_router) |
-| **Notifikasi Lokal** | `flutter_local_notifications` + `flutter_timezone` |
-| **Desain & UI Tokens** | Custom Theme Extension (`NeoBrutalTokens`) |
-| **Fonts** | Space Grotesk & Space Mono (Open Font License) |
+```bash
+flutter run -d android
+```
 
-### Struktur Folder
+For web development (serves `sqlite3.wasm` and `drift_worker.js` locally):
+
+```bash
+flutter run -d chrome
+```
+
+## Architecture and Stack
+
+Nigas follows a feature-driven folder structure with clear separation between core infrastructure and domain features.
 
 ```text
 lib/
 ├── core/
-│   ├── constants/       # Warna tema, string statis, palet mapel
-│   ├── db/              # Skema tabel Drift (SQLite), koneksi, dan provider
-│   ├── navigation/      # Deklarasi rute go_router
-│   ├── theme/           # Definisi tema (Light/Dark) & neo-brutal tokens
-│   └── widgets/         # Komponen UI reusable (Button, TextField, Chip, Card, dll)
+│   ├── constants/       # AppColors, AppStrings, styling constants
+│   ├── db/              # Drift database definition, migrations, and providers
+│   ├── navigation/      # GoRouter route declarations
+│   ├── theme/           # NeoBrutalTokens, AppTheme (light and dark mode)
+│   └── widgets/         # Shared UI primitives (buttons, text fields, chips)
 ├── features/
-│   ├── tasks/           # Alur tugas: home screen, detail tugas, form add/edit, filter
-│   ├── subjects/        # Manajemen mapel kustom & template jurusan
-│   ├── settings/        # Pengaturan tema, jam notifikasi, & kelola data
-│   └── reminders/       # Logic scheduler & helper notifikasi lokal
-└── main.dart            # Entry point aplikasi & inisialisasi background service
+│   ├── tasks/           # Task models, repositories, task form, and home dashboard
+│   ├── subjects/        # SMK category definitions and custom subject dialogs
+│   ├── settings/        # AppSettings repository, theme toggle, and notification preferences
+│   ├── reminders/       # NotificationService and reminder calculation logic
+│   └── onboarding/      # Initial major selection screen
+└── main.dart            # Application entrypoint and initialization
 ```
 
----
+Key dependencies:
+- State Management: `flutter_riverpod` (v2.6.1)
+- Persistence: `drift` (v2.24.2) with `drift_flutter` and `sqlite3_flutter_libs`
+- Routing: `go_router` (v14.8.1)
+- Notifications: `flutter_local_notifications` (v18.0.1) and `flutter_timezone` (v3.0.1)
+- Typography: Local assets for Space Grotesk and Space Mono fonts
 
-## 🚀 Memulai (Local Setup)
+## Core Workflows and Usage
 
-### Prasyarat
-Pastikan komputer kamu sudah terpasang:
-1. **Flutter SDK** versi `3.24.0` ke atas (`flutter doctor` centang hijau).
-2. **Android Studio** atau **VS Code** dengan ekstensi Flutter/Dart.
-3. Emulator Android atau perangkat fisik dengan fitur *USB Debugging* aktif.
+### Task and Subtask Tracking
+Tasks require a title, a linked subject, and a due date. Users can optionally attach notes and multiple checklist subtasks. As subtasks are completed, an inline progress indicator updates dynamically. When all subtasks are finished, the app prompts the user to mark the parent task as complete.
 
-### Langkah Instalasi
+### Major and Subject Templates
+Preset subjects populate automatically on first launch based on the Indonesian SMK curriculum:
+- RPL (Software Engineering): PAD, PWEB, PPB, UI/UX, APS
+- TKJ (Computer Network Engineering): ASJ, KEJAR, KPJ, DMIKRO, TJKN, PPJ
+- DKV (Visual Communication Design): Fotografi, Videografi, KPD, DP, Desain Cetak, AMG
+- General: PAI, PKK, PPKn, Bahasa Indonesia, Bahasa Inggris, Sejarah, Matematika, PJOK, Bahasa Jepang, BTQ, BP/BK
 
-1. **Clone repository ini:**
-   ```bash
-   git clone https://github.com/username/nigas.git
-   cd "nigas"
-   ```
+Users can add custom subjects, assign color indices from the palette, edit existing labels, or delete unused subjects. If a subject still has associated tasks, the deletion dialog requires reassigning those tasks to another subject to maintain referential integrity.
 
-2. **Pasang dependency:**
-   ```bash
-   flutter pub get
-   ```
+### Status and Query Filtering
+The home dashboard supports status filtering (`todo`, `in_progress`, `done`) alongside live search across task titles, subject names, and notes. Tasks are grouped by deadline into five operational buckets:
+- Overdue (past deadline)
+- Today (due before 23:59:59 today)
+- Tomorrow (due strictly tomorrow)
+- This Week (due within the remaining days of the current week)
+- Later (future deadlines)
 
-3. **(Opsional) Generate kode database jika mengubah skema:**
-   ```bash
-   dart run build_runner build --delete-conflicting-outputs
-   ```
+## Configuration and Persistence
 
-4. **Jalankan aplikasi di perangkat:**
-   ```bash
-   # Jalankan di Android
-   flutter run
+Nigas does not use an external `.env` file or remote backend. All configuration values and application states are stored locally in the SQLite database file (`nigas_db`).
 
-   # Atau jalankan di Chrome (Web Mode)
-   flutter run -d chrome
-   ```
+### Schema Overview
 
----
+The database uses Drift with foreign keys enforced (`PRAGMA foreign_keys = ON`):
 
-## 🧪 Pengujian & Kualitas Kode
+- `subjects`: Stores subject names, category codes (`rpl`, `tkj`, `dkv`, `general`), color indices, and preset flags.
+- `tasks`: Stores task titles, optional notes, `subjectId` (foreign key to `subjects.id` with `RESTRICT`), due timestamp, status string (`todo`, `in_progress`, `done`), and completion timestamp.
+- `subtasks`: Stores step-by-step checklist items linked to `tasks.id` with `CASCADE` on delete.
+- `app_settings_table`: Key-value store for application settings.
 
-Proyek ini dilengkapi rangkaian pengujian unit dan widget (termasuk verifikasi timezone deadline, form validation, filter status, dan layout constraints):
+### Configurable Preferences
+
+Stored key-value keys in `app_settings_table`:
+- `theme_mode`: `light`, `dark`, or `system`
+- `notifications_enabled`: `true` or `false`
+- `reminder_d1_hour` and `reminder_d1_minute`: Custom time for D-1 notification (default: 18:00 WIB)
+- `reminder_d0_hour` and `reminder_d0_minute`: Custom time for D-0 notification (default: 07:00 WIB)
+- `has_completed_onboarding`: Tracks initial welcome flow completion
+
+Data maintenance operations (cleaning completed tasks and restoring factory presets) can be triggered directly from the Settings screen.
+
+## Testing and Verification
+
+Run the test suite covering domain calculators, database repositories, form validation, and widget interactions:
 
 ```bash
-# Jalankan seluruh unit & widget test
 flutter test
+```
 
-# Cek static analysis (linter)
+Perform static analysis to verify lint rules and code health:
+
+```bash
 flutter analyze
 ```
 
----
+## Production Build
 
-## 📦 Build APK (Release)
-
-Untuk menghasilkan file APK siap pasang di HP Android:
+To build an optimized release APK for Android:
 
 ```bash
 flutter build apk --release
 ```
 
-Hasil build berada di:
-`build/app/outputs/flutter-apk/app-release.apk`
+The compiled binary will be placed at:
 
----
-
-## 🤝 Kontribusi
-
-Mau nambahin template jurusan SMK baru (misal: Otomotif/TKRO, Akuntansi, Perhotelan) atau punya ide perbaikan UI/UX?
-1. Fork repo ini.
-2. Buat branch fitur baru (`git checkout -b fitur-keren`).
-3. Commit perubahanmu (`git commit -m "Tambah template jurusan TKRO"`).
-4. Push ke branch (`git push origin fitur-keren`).
-5. Buat **Pull Request**.
-
----
-
-## 📄 Lisensi
-
-Dibuat dengan ❤️ untuk teman-teman pelajar SMK di Indonesia.  
-Proyek ini dilisensikan di bawah lisensi [MIT](LICENSE). Bebas dipelajari, dimodifikasi, dan dikembangkan lebih lanjut.
+```text
+build/app/outputs/flutter-apk/app-release.apk
+```
