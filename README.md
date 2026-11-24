@@ -1,97 +1,172 @@
-# Nigas
+# Nigas ⚡
+> **Aplikasi pencatat dan pengelola tugas sekolah buat anak SMK.**  
+> Ringan, tanpa akun, 100% luring (offline-first), dan tampil beda dengan gaya neo-brutalisme modern.
 
-Aplikasi manajemen tugas luring (offline) yang dirancang untuk siswa Sekolah Menengah Kejuruan (SMK). Aplikasi ini membantu siswa mengorganisasi tugas kejuruan maupun mata pelajaran umum dalam satu antarmuka yang terstruktur.
+[![Flutter Version](https://img.shields.io/badge/Flutter-3.24+-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
+[![Dart Version](https://img.shields.io/badge/Dart-3.5+-0175C2?logo=dart&logoColor=white)](https://dart.dev)
+[![Database](https://img.shields.io/badge/SQLite-Drift-003B57?logo=sqlite&logoColor=white)](https://drift.simonbinder.eu/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20Web-blue)](#)
 
-## Fitur Utama
+---
 
-### 1. Pengelompokan Berdasarkan Jurusan dan Mapel Umum
-- Jurusan Kejuruan: Tersedia menu khusus untuk jurusan Rekayasa Perangkat Lunak (RPL), Teknik Komputer dan Jaringan (TKJ), serta Desain Komunikasi Visual (DKV).
-- Mata Pelajaran Umum: Menu khusus untuk mata pelajaran wajib seperti Matematika, Bahasa Indonesia, Bahasa Inggris, dan lainnya.
-- Navigasi Langsung: Setiap kartu jurusan atau mapel umum dapat diklik untuk membuka daftar tugas spesifik kategori tersebut.
+## 🎯 Kenapa Bikin Nigas?
 
-### 2. Manajemen To-Do List dan Status Tugas
-- Tiga Tahapan Status: Setiap tugas memiliki indikator status yang jelas, yaitu Belum Dikerjakan, Sedang Dikerjakan, dan Sudah Selesai.
-- Penggantian Status Cepat: Status tugas dapat diubah langsung melalui penanda status pada kartu tugas atau melalui halaman detail tugas.
-- Penyelesaian Tugas: Kotak centang untuk menandai tugas selesai secara instan dengan opsi pembatalan (undo).
-- Subtugas: Dukungan penambahan rincian subtugas berupa daftar periksa dengan bar progres otomatis.
+Kalau kamu anak SMK, kamu pasti tahu rasanya waktu tugas kejuruan (praktikum, ngoding, instalasi jaringan, render video) mulai numpuk barengan sama tugas mapel umum. Banyak aplikasi to-do list di Play Store yang:
+- Terlalu ribet (harus register, verifikasi email, login Google).
+- Banyak iklan atau fitur berbayar.
+- Harus ada koneksi internet cuma buat nyatet PR besok pagi.
+- Formatnya kaku dan nggak ramah buat struktur mapel SMK.
 
-### 3. Template dan Pengelolaan Mata Pelajaran
-- Template Bawaan: Disediakan daftar mata pelajaran bawaan untuk setiap jurusan dan mapel umum saat aplikasi pertama kali dijalankan.
-- Penambahan Bebas: Pengguna dapat memilih template yang tersedia atau membuat mata pelajaran baru secara mandiri.
-- Manajemen Penuh: Pengguna dapat mengubah nama mata pelajaran, warna label, maupun menghapus mata pelajaran dari menu pengaturan.
+**Nigas** dibuat sesimpel mungkin: install, buka, langsung catat. Semua data tersimpan aman di HP kamu, nggak dikirim ke server mana pun, dan bisa dipakai kapan aja tanpa kuota.
 
-### 4. Pengingat Deadline Lokal
-- Notifikasi Luring: Pengingat berjalan sepenuhnya di perangkat tanpa memerlukan koneksi internet atau pembuatan akun.
-- Jadwal Pengingat: Pengingat otomatis menjelang batas waktu pengumpulan (H-1 dan Hari-H).
-- Penyesuaian Jam: Waktu pengingat dapat disesuaikan melalui halaman Pengaturan.
+---
 
-### 5. Dukungan Multiplatform
-- Android: Menggunakan penyimpanan lokal SQLite native.
-- Web: Menggunakan SQLite berbasis WebAssembly (WASM) dan Web Worker dengan penyimpanan persisten di peramban.
+## ✨ Fitur Andalan
 
-## Kebutuhan Sistem
+### 1. Template Jurusan SMK Siap Pakai
+Nggak perlu ngetik nama mapel satu-satu dari nol. Saat aplikasi pertama kali dibuka, Nigas sudah menyiapkan template mapel kejuruan dan umum:
+- **RPL (Rekayasa Perangkat Lunak):** `PAD`, `PWEB`, `PPB`, `UI/UX`, `APS`.
+- **TKJ (Teknik Komputer & Jaringan):** `ASJ`, `KEJAR`, `KPJ`, `DMIKRO`, `TJKN`, `PPJ`.
+- **DKV (Desain Komunikasi Visual):** `Fotografi`, `Videografi`, `KPD`, `DP`, `Desain Cetak`, `AMG`.
+- **Mata Pelajaran Umum:** `PAI`, `PKK`, `PPKn`, `B. Indo`, `B. Inggris`, `Sejarah`, `MTK`, `PJOK`, `B. Jepang`, `BTQ`, `BP/BK`.
+> *Kamu tetap bebas nambah, ganti nama, ubah warna tag, atau hapus mapel sesuai kurikulum sekolahmu lewat menu Pengaturan.*
 
-- Flutter SDK versi 3.24 atau lebih baru
-- Dart SDK versi 3.5 atau lebih baru
-- Google Chrome (untuk menjalankan versi web)
-- Android SDK dan Android Studio (untuk menjalankan versi Android)
+### 2. Checklist Subtugas (Step-by-Step)
+Tugas besar kayak "Proyek Web Laravel" atau "Bikin Banner Promosi" biasanya butuh beberapa tahapan. Kamu bisa pecah tugas jadi checklist subtugas kecil lengkap dengan progress bar otomatis. Begitu semua subtugas dicentang, aplikasi bakal nawarin buat langsung tandai tugas utama sebagai selesai.
 
-## Petunjuk Penggunaan
+### 3. Pengingat Deadline Lokal (H-1 & Hari-H)
+- Notifikasi berjalan 100% lokal di perangkatmu via `flutter_local_notifications` dan `timezone`.
+- Jadwal otomatis: **H-1** sore hari dan **Hari-H** pagi hari sebelum jam masuk sekolah.
+- Jam notifikasi bisa diatur sesuka hati lewat menu Pengaturan.
 
-### 1. Persiapan Dependensi
+### 4. Navigasi & Filter Sat-Set
+- **Pencarian Cepat (Live Search):** Cari berdasarkan judul tugas, mapel, atau isi catatan tambahan.
+- **Filter Status:** Pisahkan antara tugas yang `Belum`, `Sedang Dikerjakan`, atau `Selesai`.
+- **Grup Deadline Cerdas:** Tugas otomatis dikelompokkan: *Lewat Deadline*, *Hari Ini*, *Besok*, *Minggu Ini*, dan *Nanti*.
 
-Jalankan perintah berikut di direktori proyek:
+### 5. Desain Neo-Brutalisme yang Segar & Rapi
+- Menggunakan tipografi tegas (`Space Grotesk` untuk judul dan `Space Mono` untuk metadata/jam).
+- Border tebal dengan shadow retro yang konsisten.
+- Mendukung **Mode Terang** dan **Mode Gelap** yang nyaman di mata, plus deteksi otomatis dari tema sistem HP.
 
-```bash
-flutter pub get
-```
+### 6. Privasi 100% & Manajemen Data
+- Tanpa pelacak, analitik, maupun koneksi eksternal.
+- Fitur **Bersihkan Tugas Selesai** untuk membersihkan daftar tanpa menghilangkan tugas yang masih aktif.
+- Opsi **Reset Data Pabrik** kalau mau mengulang dari awal.
 
-### 2. Menjalankan Aplikasi di Peramban Web
+---
 
-```bash
-flutter run -d chrome
-```
+## 🛠️ Tech Stack & Arsitektur
 
-### 3. Menjalankan Aplikasi di Perangkat Android
+Aplikasi ini dibangun menggunakan arsitektur fitur (*feature-first*) yang terpisah dan mudah dipelihara:
 
-Pastikan perangkat Android atau emulator telah terhubung:
+| Komponen | Pustaka / Teknologi |
+|---|---|
+| **Framework** | [Flutter](https://flutter.dev) (Dart SDK 3.5+) |
+| **State Management** | [Flutter Riverpod](https://riverpod.dev) |
+| **Local Database** | [Drift (SQLite)](https://drift.simonbinder.eu) dengan reactive streams |
+| **Routing / Navigasi** | [GoRouter](https://pub.dev/packages/go_router) |
+| **Notifikasi Lokal** | `flutter_local_notifications` + `flutter_timezone` |
+| **Desain & UI Tokens** | Custom Theme Extension (`NeoBrutalTokens`) |
+| **Fonts** | Space Grotesk & Space Mono (Open Font License) |
 
-```bash
-flutter run -d android
-```
-
-### 4. Menjalankan Pengujian
-
-Untuk menjalankan seluruh unit test dan widget test:
-
-```bash
-flutter test
-```
-
-### 5. Pemeriksaan Kualitas Kode
-
-```bash
-flutter analyze
-```
-
-## Struktur Direktori
+### Struktur Folder
 
 ```text
 lib/
 ├── core/
-│   ├── constants/       # Konstanta warna, string, dan teks aplikasi
-│   ├── db/              # Konfigurasi database Drift, migrasi skema, dan provider
-│   ├── navigation/      # Konfigurasi rute menggunakan GoRouter
-│   ├── theme/           # Konfigurasi tema dan token tampilan
-│   └── widgets/         # Komponen antarmuka yang dapat digunakan ulang
+│   ├── constants/       # Warna tema, string statis, palet mapel
+│   ├── db/              # Skema tabel Drift (SQLite), koneksi, dan provider
+│   ├── navigation/      # Deklarasi rute go_router
+│   ├── theme/           # Definisi tema (Light/Dark) & neo-brutal tokens
+│   └── widgets/         # Komponen UI reusable (Button, TextField, Chip, Card, dll)
 ├── features/
-│   ├── tasks/           # Modul tugas, to-do list, filter status, dan form tugas
-│   ├── subjects/        # Modul pengelolaan mata pelajaran dan kategori SMK
-│   ├── settings/        # Modul pengaturan jam pengingat dan preferensi tema
-│   └── reminders/       # Modul perhitungan jadwal pengingat dan notifikasi lokal
-└── main.dart            # Titik masuk utama aplikasi
+│   ├── tasks/           # Alur tugas: home screen, detail tugas, form add/edit, filter
+│   ├── subjects/        # Manajemen mapel kustom & template jurusan
+│   ├── settings/        # Pengaturan tema, jam notifikasi, & kelola data
+│   └── reminders/       # Logic scheduler & helper notifikasi lokal
+└── main.dart            # Entry point aplikasi & inisialisasi background service
 ```
 
-## Lisensi
+---
 
-Proyek ini ditujukan untuk kebutuhan personal dan edukasi.
+## 🚀 Memulai (Local Setup)
+
+### Prasyarat
+Pastikan komputer kamu sudah terpasang:
+1. **Flutter SDK** versi `3.24.0` ke atas (`flutter doctor` centang hijau).
+2. **Android Studio** atau **VS Code** dengan ekstensi Flutter/Dart.
+3. Emulator Android atau perangkat fisik dengan fitur *USB Debugging* aktif.
+
+### Langkah Instalasi
+
+1. **Clone repository ini:**
+   ```bash
+   git clone https://github.com/username/nigas.git
+   cd "nigas"
+   ```
+
+2. **Pasang dependency:**
+   ```bash
+   flutter pub get
+   ```
+
+3. **(Opsional) Generate kode database jika mengubah skema:**
+   ```bash
+   dart run build_runner build --delete-conflicting-outputs
+   ```
+
+4. **Jalankan aplikasi di perangkat:**
+   ```bash
+   # Jalankan di Android
+   flutter run
+
+   # Atau jalankan di Chrome (Web Mode)
+   flutter run -d chrome
+   ```
+
+---
+
+## 🧪 Pengujian & Kualitas Kode
+
+Proyek ini dilengkapi rangkaian pengujian unit dan widget (termasuk verifikasi timezone deadline, form validation, filter status, dan layout constraints):
+
+```bash
+# Jalankan seluruh unit & widget test
+flutter test
+
+# Cek static analysis (linter)
+flutter analyze
+```
+
+---
+
+## 📦 Build APK (Release)
+
+Untuk menghasilkan file APK siap pasang di HP Android:
+
+```bash
+flutter build apk --release
+```
+
+Hasil build berada di:
+`build/app/outputs/flutter-apk/app-release.apk`
+
+---
+
+## 🤝 Kontribusi
+
+Mau nambahin template jurusan SMK baru (misal: Otomotif/TKRO, Akuntansi, Perhotelan) atau punya ide perbaikan UI/UX?
+1. Fork repo ini.
+2. Buat branch fitur baru (`git checkout -b fitur-keren`).
+3. Commit perubahanmu (`git commit -m "Tambah template jurusan TKRO"`).
+4. Push ke branch (`git push origin fitur-keren`).
+5. Buat **Pull Request**.
+
+---
+
+## 📄 Lisensi
+
+Dibuat dengan ❤️ untuk teman-teman pelajar SMK di Indonesia.  
+Proyek ini dilisensikan di bawah lisensi [MIT](LICENSE). Bebas dipelajari, dimodifikasi, dan dikembangkan lebih lanjut.
